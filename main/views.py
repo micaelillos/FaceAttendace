@@ -4,13 +4,31 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from main.form import SignUpForm
-from .models import School, Teacher
+from .models import School, Teacher, Student, Class
+import json
 # Create your views here.
-global teacher_id
+# 68722828
 
 
 def homepage(request):
-    return render(request=request, template_name='main/home.html')
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        classes = Class.objects.filter(teacher=teacher).all()
+        return render(request=request, template_name='main/home.html', context={'classes': classes})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+
+def get_Student(request, student_name):
+    if request.method == 'GET':
+        try:
+            student = Student.objects.filter(name=student_name)[0]
+            response = json.dumps([{'Student id': student.id, 'Student name': student.name, 'Class': student.origin_class, 'School': str(student.school)}])
+        except:
+            response = json.dumps([{'Error': 'No Student Found'}])
+        return HttpResponse(response, content_type='text/json')
 
 
 def register(request):
@@ -25,14 +43,12 @@ def register(request):
 
             first_name = form.cleaned_data.get('first_name')
             last_name = form.cleaned_data.get('last_name')
+            username = form.cleaned_data.get('username')
             name = first_name + ' ' + last_name
             school_code = form.cleaned_data.get('school_code')
             school = School.objects.filter(teacher_code=school_code)[0]
-            new_teacher = Teacher(name=name, school=school)
+            new_teacher = Teacher(name=name, school=school, username=username)
             new_teacher.save()
-
-            user.teacher_id = new_teacher.id
-            user.save()
 
             return redirect('main:homepage')
         else:
@@ -54,10 +70,8 @@ def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            global teacher_id
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            teacher_id = form.cleaned_data('teacher_id')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
@@ -72,5 +86,5 @@ def login_request(request):
     return render(request, 'main/login.html', {'form': form})
 
 
-def view_classes(request):
+def view_classes(request, teacher_id):
     pass

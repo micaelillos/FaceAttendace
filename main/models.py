@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from random import randint
 
 
@@ -13,6 +14,7 @@ class School(models.Model):
 
 
 class Teacher(models.Model):
+    username = models.CharField(max_length=200, default='not set yet')
     name = models.CharField(max_length=200)
     id = models.AutoField(primary_key=True)
     school = models.ForeignKey(School, default=0, on_delete=models.SET_DEFAULT)
@@ -65,3 +67,8 @@ class Class(models.Model):
                 student_list.append(Student.objects.filter(id=student_id)[0])
                 student_id = ''
         return student_list
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    teacher_id = models.CharField(max_length=200)

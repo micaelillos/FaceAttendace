@@ -11,9 +11,7 @@ global teacher_id
 
 
 def homepage(request):
-    response = json.dumps([{}])
-    return HttpResponse(response,content_type='text/json')
-   # return render(request=request, template_name='main/home.html')
+    return render(request=request, template_name='main/home.html')
 
 def get_Student(request, student_name):
     if request.method == 'GET':

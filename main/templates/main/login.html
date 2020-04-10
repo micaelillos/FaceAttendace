@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% extends "main/header.html" %}
+
     <style>
 
 .helptext{
@@ -10,9 +12,11 @@
 }
 
 
+
     </style>
 </head>
 <body>
+{% block content %}
 {% csrf_token %}
 <form method="POST">
     {% csrf_token %}
@@ -21,6 +25,7 @@
 </form>
 
 <p>if you don't already have an account, <a href="/register">register</a> for one </p>
+{% endblock %}
 
 </body>
 </html>

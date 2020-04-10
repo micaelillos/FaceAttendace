@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
     {% extends "main/header.html" %}
+
 </head>
 <body>
 {% block content %}
 
-<h1>hey!!</h1>
-{% for class in classes %}
-<a href="/view_class/{{class.id}}">{{class.name}}</a>
+<h1>Student List:</h1>
+{% for student in student_list %}
+{{student.name}}
+<br>
+{{student.origin_class}}
+<br>
 <br>
 {% endfor %}
 

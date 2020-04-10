@@ -8,6 +8,8 @@ class School(models.Model):
     id = models.AutoField(primary_key=True)
     teacher_code = models.CharField(max_length=8, unique=True, blank=True,
                                     default=str(randint(10000000, 99999999)))
+    admin_code = models.CharField(max_length=9, unique=True, blank=True,
+                                  default=str(randint(100000000, 999999999)))
 
     def __str__(self):
         return self.name
@@ -17,6 +19,7 @@ class Teacher(models.Model):
     username = models.CharField(max_length=200, default='not set yet')
     name = models.CharField(max_length=200)
     id = models.AutoField(primary_key=True)
+    is_admin = models.BooleanField(default=False)
     school = models.ForeignKey(School, default=0, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
@@ -36,6 +39,7 @@ class Student(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
+
     id = models.AutoField(primary_key=True)
     teacher = models.ForeignKey(Teacher, default=0, on_delete=models.SET_DEFAULT)
     student_list = models.CharField(max_length=1000, default='', blank=True)
@@ -66,9 +70,7 @@ class Class(models.Model):
             else:
                 student_list.append(Student.objects.filter(id=student_id)[0])
                 student_id = ''
+        if student_id != ' ' and student_id != '':
+            student_list.append(Student.objects.filter(id=student_id)[0])
+
         return student_list
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    teacher_id = models.CharField(max_length=200)

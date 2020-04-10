@@ -7,7 +7,8 @@ from main.form import SignUpForm
 from .models import School, Teacher, Student, Class
 import json
 # Create your views here.
-# 68722828
+# teacher: 97641981
+# admin: 467713068
 
 
 def homepage(request):
@@ -18,7 +19,7 @@ def homepage(request):
         return render(request=request, template_name='main/home.html', context={'classes': classes})
     else:
         form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:login')
 
 
 def get_Student(request, student_name):
@@ -46,9 +47,19 @@ def register(request):
             username = form.cleaned_data.get('username')
             name = first_name + ' ' + last_name
             school_code = form.cleaned_data.get('school_code')
-            school = School.objects.filter(teacher_code=school_code)[0]
-            new_teacher = Teacher(name=name, school=school, username=username)
-            new_teacher.save()
+
+            if len(School.objects.filter(teacher_code=school_code).all()) > 0:
+                school = School.objects.filter(teacher_code=school_code).all()[0]
+                new_teacher = Teacher(name=name, school=school, username=username)
+                new_teacher.save()
+            elif len(School.objects.filter(admin_code=school_code).all()) > 0:
+                school = School.objects.filter(admin_code=school_code).all()[0]
+                new_teacher = Teacher(name=name, school=school, username=username, is_admin=True)
+                new_teacher.save()
+            else:
+                print('error')
+                # add error: school code not found
+                pass
 
             return redirect('main:homepage')
         else:
@@ -67,7 +78,8 @@ def logout_request(request):
 
 
 def login_request(request):
-    if request.method == 'POST':
+
+    if not request.user.is_authenticated and request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -86,5 +98,16 @@ def login_request(request):
     return render(request, 'main/login.html', {'form': form})
 
 
-def view_classes(request, teacher_id):
+def view_class(request, class_id):
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        student_list = class_.get_student_list()
+        return render(request=request, template_name='main/view_class.html', context={'student_list': student_list})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+def view_school(request):
     pass

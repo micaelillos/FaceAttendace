@@ -23,6 +23,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('logout/', views.logout_request, name='logout'),
     path('login/', views.login_request, name='login'),
+    path('view_class/<int:class_id>', views.view_class, name='view class'),
+
     # Json response
     path('student/<str:student_name>', views.get_Student, name='getstudent'),
 ]

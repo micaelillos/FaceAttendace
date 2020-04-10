@@ -47,7 +47,6 @@ def register(request):
             username = form.cleaned_data.get('username')
             name = first_name + ' ' + last_name
             school_code = form.cleaned_data.get('school_code')
-
             if len(School.objects.filter(teacher_code=school_code).all()) > 0:
                 school = School.objects.filter(teacher_code=school_code).all()[0]
                 new_teacher = Teacher(name=name, school=school, username=username)
@@ -109,5 +108,22 @@ def view_class(request, class_id):
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
 
+
 def view_school(request):
-    pass
+    if request.user.is_authenticated:
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        school = teacher.school
+        students = Student.objects.filter(school=school).all()
+        classes = {}
+        for student in students:
+            key = student.origin_class
+            if classes.get(key) is None:
+                classes[key] = [student]
+            else:
+                classes[key].append(student)
+
+        return render(request, 'main/view_school.html', {'classes': classes})
+
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})

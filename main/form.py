@@ -7,7 +7,7 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField(max_length=254)
-    school_code = forms.CharField(max_length=8)
+    school_code = forms.CharField(max_length=10)
     teacher_id = forms.CharField(max_length=200, required=False, widget=forms.HiddenInput())
 
     class Meta:

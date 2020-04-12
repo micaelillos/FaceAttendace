@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% extends "main/header.html" %}
+</head>
+<body>
+{% block content %}
+
+<h1>School List:</h1>
+{% for origin_class,students in classes.items %}
+<h3>{{origin_class}}</h3>
+
+{% for student in students %}
+{{student.name}}
+
+<br>
+{% endfor %}
+<br>
+<br>
+{% endfor %}
+
+<h1>List of Teachers:</h1>
+{% for teacher in teachers %}
+<h4>{{teacher}}</h4>
+{% endfor %}
+
+
+{% endblock %}
+</body>
+</html>

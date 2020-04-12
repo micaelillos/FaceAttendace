@@ -8,7 +8,7 @@
 <body>
 {% block content %}
 
-<h1>hey!!</h1>
+<h1>hello {{request.user.name}}</h1>
 {% for class in classes %}
 <a href="/view_class/{{class.id}}">{{class.name}}</a>
 <br>

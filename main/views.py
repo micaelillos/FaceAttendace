@@ -15,8 +15,15 @@ def homepage(request):
     if request.user.is_authenticated:
 
         teacher = Teacher.objects.filter(username=request.user.username)[0]
-        classes = Class.objects.filter(teacher=teacher).all()
-        return render(request=request, template_name='main/home.html', context={'classes': classes})
+
+        if not teacher.is_admin:  # in case its not a school admin
+            classes = Class.objects.filter(teacher=teacher).all()
+            return render(request=request, template_name='main/home.html', context={'classes': classes})
+        else:
+            classes = get_dict_of_origin_classes(teacher.school)
+            teachers = Teacher.objects.filter(school=teacher.school, is_admin=False).all()
+            return render(request=request, template_name='main/admin_home.html',
+                          context={'classes': classes, 'teachers': teachers})
     else:
         form = AuthenticationForm()
         return redirect('main:login')
@@ -113,17 +120,41 @@ def view_school(request):
     if request.user.is_authenticated:
         teacher = Teacher.objects.filter(username=request.user.username)[0]
         school = teacher.school
-        students = Student.objects.filter(school=school).all()
-        classes = {}
-        for student in students:
-            key = student.origin_class
-            if classes.get(key) is None:
-                classes[key] = [student]
-            else:
-                classes[key].append(student)
-
+        classes = get_dict_of_origin_classes(school)
         return render(request, 'main/view_school.html', {'classes': classes})
 
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
+
+
+def get_dict_of_origin_classes(school):
+    students = Student.objects.filter(school=school).all()
+    classes = {}
+    for student in students:
+        key = student.origin_class
+        if classes.get(key) is None:
+            classes[key] = [student]
+        else:
+            classes[key].append(student)
+
+    return classes
+
+
+def get_all_teacher_classes(request, username):
+    teacher = Teacher.objects.filter(username=username)[0]
+    if request.method == 'GET':
+        try:
+            classes = Class.objects.filter(teacher=teacher).all()
+            class_names = [c.name for c in classes]
+
+            response = json.dumps([{'classes': class_names}])
+        except:
+            response = json.dumps([{'Error': 'no classes'}])
+
+    return HttpResponse(response, content_type='text/json')
+
+
+def get_origin_class_list(school, origin_class):
+    student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
+    return student_list

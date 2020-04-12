@@ -20,11 +20,14 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.homepage, name='homepage'),
+    path('admin_home', views.homepage, name='admin homepage'),
     path('register/', views.register, name='register'),
     path('logout/', views.logout_request, name='logout'),
     path('login/', views.login_request, name='login'),
     path('view_class/<int:class_id>/', views.view_class, name='view class'),
     path('view_school/', views.view_school, name='view school'),
     # Json response
-    path('student/<str:student_name>', views.get_Student, name='getstudent'),
+    path('student/<str:student_name>', views.get_Student, name='get student'),
+    path('teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),
+
 ]

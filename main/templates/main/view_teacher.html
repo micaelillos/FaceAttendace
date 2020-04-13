@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Teacher</title>
     {% extends "main/header.html" %}
 </head>
 <body>
@@ -10,9 +10,12 @@
 
 <h1>hello {{request.user.name}}</h1>
 {% for class in classes %}
-<a href="/view_class/{{class.id}}">{{class.name}}</a>
+<a href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
 <br>
 {% endfor %}
+
+<br><br>
+<a href="/">Back</a>
 
 {% endblock %}
 </body>

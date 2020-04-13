@@ -25,7 +25,12 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout'),
     path('login/', views.login_request, name='login'),
     path('view_class/<int:class_id>/', views.view_class, name='view class'),
+    path('view_origin_class/<str:origin_class>/', views.view_origin_class, name='view origin class'),
     path('view_school/', views.view_school, name='view school'),
+    path('view_teacher/<int:teacher_id>/', views.view_teacher, name='view teacher'),
+    path('view_student/<int:student_id>/', views.view_student, name='view student'),
+    path('view_teacher_class_for_admin/<int:teacher_id>/<int:class_id>/', views.view_teacher_class_for_admin, name='view teacher class for admin'),
+
     # Json response
     path('student/<str:student_name>', views.get_Student, name='get student'),
     path('teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),

@@ -2,28 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Home</title>
     {% extends "main/header.html" %}
 </head>
 <body>
 {% block content %}
 
-<h1>School List:</h1>
+<h1>Origin Classes:</h1>
 {% for origin_class,students in classes.items %}
-<h3>{{origin_class}}</h3>
+<a href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
 
-{% for student in students %}
-{{student.name}}
-
-<br>
-{% endfor %}
 <br>
 <br>
 {% endfor %}
 
 <h1>List of Teachers:</h1>
 {% for teacher in teachers %}
-<h4>{{teacher}}</h4>
+<a href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
 {% endfor %}
 
 

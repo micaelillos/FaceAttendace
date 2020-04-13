@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    {% extends "main/header.html" %}
+
+</head>
+<body>
+{% block content %}
+
+<h1>{{student.name}}</h1>
+<h3>add pic, link: {{student.image_link}}</h3>
+
+<br><br>
+<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back</a>
+
+
+{% endblock %}
+</body>
+</html>

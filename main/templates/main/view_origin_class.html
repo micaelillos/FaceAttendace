@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Class</title>
+    <title>Origin Class</title>
     {% extends "main/header.html" %}
 
 </head>
@@ -13,13 +13,12 @@
 {% for student in student_list %}
 <a href="/view_student/{{student.id}}"> {{student.name}} </a>
 <br>
-{{student.origin_class}}
-<br>
-<br>
-{% endfor %}
 
+{% endfor %}
 <br><br>
-<a href="{{path}}">Back</a>
+<a href="/admin_home">Back</a>
+
+
 {% endblock %}
 </body>
 </html>

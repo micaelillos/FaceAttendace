@@ -6,6 +6,8 @@ from django.contrib import messages
 from main.form import SignUpForm
 from .models import School, Teacher, Student, Class
 import json
+
+
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
@@ -27,16 +29,6 @@ def homepage(request):
     else:
         form = AuthenticationForm()
         return redirect('main:login')
-
-
-def get_Student(request, student_name):
-    if request.method == 'GET':
-        try:
-            student = Student.objects.filter(name=student_name)[0]
-            response = json.dumps([{'Student id': student.id, 'Student name': student.name, 'Class': student.origin_class, 'School': str(student.school)}])
-        except:
-            response = json.dumps([{'Error': 'No Student Found'}])
-        return HttpResponse(response, content_type='text/json')
 
 
 def register(request):
@@ -84,7 +76,6 @@ def logout_request(request):
 
 
 def login_request(request):
-
     if not request.user.is_authenticated and request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -104,18 +95,6 @@ def login_request(request):
     return render(request, 'main/login.html', {'form': form})
 
 
-def view_class(request, class_id):
-    if request.user.is_authenticated:
-
-        teacher = Teacher.objects.filter(username=request.user.username)[0]
-        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
-        student_list = class_.get_student_list()
-        return render(request=request, template_name='main/view_class.html', context={'student_list': student_list})
-    else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
-
-
 def view_school(request):
     if request.user.is_authenticated:
         teacher = Teacher.objects.filter(username=request.user.username)[0]
@@ -128,6 +107,63 @@ def view_school(request):
         return render(request, 'main/login.html', {'form': form})
 
 
+def view_teacher(request, teacher_id):
+    if request.user.is_authenticated:
+        teacher = Teacher.objects.filter(id=teacher_id)[0]
+        classes = Class.objects.filter(teacher=teacher).all()
+        return render(request=request, template_name='main/view_teacher.html',
+                      context={'classes': classes, 'teacher': teacher})
+    else:
+        return redirect('main:login')
+
+
+def view_student(request, student_id):
+    if request.user.is_authenticated:
+        student = Student.objects.filter(id=student_id)[0]
+        return render(request, 'main/view_student.html', {'student': student})
+    else:
+        return redirect('main:login')
+
+
+def view_class(request, class_id):
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        student_list = class_.get_student_list()
+        return render(request=request, template_name='main/view_class.html',
+                      context={'student_list': student_list, 'path': '/'})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+
+def view_origin_class(request, origin_class):
+    if request.user.is_authenticated:
+        username = request.user.username
+        teacher = Teacher.objects.filter(username=username)[0]
+        school = teacher.school
+        student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
+        return render(request, 'main/view_origin_class.html', {'student_list': student_list})
+    else:
+        return redirect('main:login')
+
+
+def view_teacher_class_for_admin(request, teacher_id, class_id):
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(id=teacher_id)[0]
+        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        student_list = class_.get_student_list()
+        return render(request=request, template_name='main/view_class.html',
+                      context={'student_list': student_list,
+                               'path': '/view_teacher/' + str(teacher_id)})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+
+# help functions
 def get_dict_of_origin_classes(school):
     students = Student.objects.filter(school=school).all()
     classes = {}
@@ -139,6 +175,23 @@ def get_dict_of_origin_classes(school):
             classes[key].append(student)
 
     return classes
+
+
+def get_origin_class_list(school, origin_class):
+    student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
+    return student_list
+
+
+# json functions
+def get_Student(request, student_name):
+    if request.method == 'GET':
+        try:
+            student = Student.objects.filter(name=student_name)[0]
+            response = json.dumps([{'Student id': student.id, 'Student name': student.name,
+                                    'Class': student.origin_class, 'School': str(student.school)}])
+        except:
+            response = json.dumps([{'Error': 'No Student Found'}])
+        return HttpResponse(response, content_type='text/json')
 
 
 def get_all_teacher_classes(request, username):
@@ -153,8 +206,3 @@ def get_all_teacher_classes(request, username):
             response = json.dumps([{'Error': 'no classes'}])
 
     return HttpResponse(response, content_type='text/json')
-
-
-def get_origin_class_list(school, origin_class):
-    student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
-    return student_list

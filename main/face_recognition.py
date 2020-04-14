@@ -8,6 +8,7 @@ from mtcnn.mtcnn import MTCNN
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
 import cv2
+import pickle
 import time
 
 
@@ -103,6 +104,14 @@ def find_known_faces(model, class_embeddings, class_names, filename):
         if result != -1:
             known.append(class_names[result])
     return known
+
+
+# getting an image link and saving embedding in wanted link
+def save_embedding(image_link, embedding_link):
+    embedding = get_embeddings(image_link)
+    file = open(embedding_link, 'wb')
+    pickle.dump(embedding, file)
+    file.close()
 
 
 # required

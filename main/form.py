@@ -19,3 +19,8 @@ class SignUpForm(UserCreationForm):
             'Password': None,
             'Password confirmation': None,
         }
+
+
+class NewStudentForm(forms.Form):
+    name = forms.CharField(max_length=200)
+    embedding_link = forms.CharField(max_length=200)

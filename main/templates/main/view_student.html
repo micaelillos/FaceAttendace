@@ -10,10 +10,10 @@
 {% block content %}
 
 <h1>{{student.name}}</h1>
-<h3>add pic, link: {{student.image_link}}</h3>
+<h3>add pic, link: {{student.embedding_link}}</h3>
 
 <br><br>
-<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back</a>
+<a href="{{ request.META.HTTP_REFERER }}" class="button is-primary" class>Back</a>
 
 
 {% endblock %}

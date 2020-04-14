@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from main.form import SignUpForm
+from main.form import SignUpForm, NewStudentForm
 from .models import School, Teacher, Student, Class
 import json
 
@@ -144,7 +144,7 @@ def view_origin_class(request, origin_class):
         teacher = Teacher.objects.filter(username=username)[0]
         school = teacher.school
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
-        return render(request, 'main/view_origin_class.html', {'student_list': student_list})
+        return render(request, 'main/view_origin_class.html', {'student_list': student_list, 'origin_class':origin_class})
     else:
         return redirect('main:login')
 
@@ -161,6 +161,31 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
+
+
+def add_student_to_origin(request, origin_class):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = NewStudentForm(request.POST)
+            if form.is_valid():
+                username = request.user.username
+                teacher = Teacher.objects.filter(username=username)[0]
+                school = teacher.school
+                name = form.cleaned_data.get('name')
+                embedding_link = form.cleaned_data.get('embedding_link')
+                new_student = Student(name=name, embedding_link=embedding_link,
+                                      origin_class=origin_class, school=school)
+                new_student.save()
+                # add added student message
+                return redirect('main:view origin class', origin_class=origin_class)
+            else:
+                # add not valid form error
+                return render(request, 'main/add_student.html', {'form': form})
+        else:
+            form = NewStudentForm
+            return render(request, 'main/add_student.html', {'form': form})
+    else:
+        return redirect('main:login')
 
 
 # help functions

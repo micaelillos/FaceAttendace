@@ -30,6 +30,7 @@ urlpatterns = [
     path('view_teacher/<int:teacher_id>/', views.view_teacher, name='view teacher'),
     path('view_student/<int:student_id>/', views.view_student, name='view student'),
     path('view_teacher_class_for_admin/<int:teacher_id>/<int:class_id>/', views.view_teacher_class_for_admin, name='view teacher class for admin'),
+    path('add_student/<str:origin_class>/', views.add_student_to_origin, name='add student to origin class'),
 
     # Json response
     path('student/<str:student_name>', views.get_Student, name='get student'),

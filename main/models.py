@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from random import randint
+import pickle
 
 
 class School(models.Model):
@@ -29,7 +30,7 @@ class Teacher(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=200)
     id = models.AutoField(primary_key=True)
-    image_link = models.CharField(max_length=200)
+    embedding_link = models.CharField(max_length=200)
     origin_class = models.CharField(max_length=10)
     school = models.ForeignKey(School, default=0, on_delete=models.SET_DEFAULT)
 
@@ -74,3 +75,16 @@ class Class(models.Model):
             student_list.append(Student.objects.filter(id=student_id)[0])
 
         return student_list
+
+    def get_class_embeddings(self):
+        student_list = self.get_student_list()
+        embeddings = []
+        names = []
+        for student in student_list:
+            file = open(student.embedding_link, 'rb')
+            embedding = pickle.load(file)
+            embeddings.append(embedding)
+            names.append(student.name)
+            file.close()
+
+        return embeddings, names

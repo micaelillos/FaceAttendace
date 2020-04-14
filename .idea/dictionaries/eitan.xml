@@ -3,6 +3,7 @@
     <words>
       <w>endblock</w>
       <w>endfor</w>
+      <w>filenames</w>
     </words>
   </dictionary>
 </component>

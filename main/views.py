@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from main.form import SignUpForm, NewStudentForm
@@ -144,7 +144,8 @@ def view_origin_class(request, origin_class):
         teacher = Teacher.objects.filter(username=username)[0]
         school = teacher.school
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
-        return render(request, 'main/view_origin_class.html', {'student_list': student_list, 'origin_class':origin_class})
+        return render(request, 'main/view_origin_class.html', {'student_list': student_list,
+                                                               'origin_class': origin_class})
     else:
         return redirect('main:login')
 
@@ -229,5 +230,6 @@ def get_all_teacher_classes(request, username):
             response = json.dumps([{'classes': class_names}])
         except:
             response = json.dumps([{'Error': 'no classes'}])
-
+    else:
+        response = None
     return HttpResponse(response, content_type='text/json')

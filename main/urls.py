@@ -33,7 +33,7 @@ urlpatterns = [
     path('add_student/<str:origin_class>/', views.add_student_to_origin, name='add student to origin class'),
 
     # Json response
-    path('student/<str:student_name>', views.get_Student, name='get student'),
-    path('teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),
+    path('api/student/<str:student_name>', views.get_Student, name='get student'),
+    path('api/teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),
 
 ]

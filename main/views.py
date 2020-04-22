@@ -17,7 +17,6 @@ def error_404(request, exception):
     return render(request, 'main/hello.html', data)
 
 
-
 def homepage(request):
     if request.user.is_authenticated:
 
@@ -82,7 +81,8 @@ def logout_request(request):
 
 def login_request(request):
     if not request.user.is_authenticated and request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
+        print(form.is_valid())
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')

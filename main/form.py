@@ -47,19 +47,21 @@ class SignUpForm(UserCreationForm):
             'Password confirmation': None,
         }
 
+
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
     username = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Username', 'id': 'hello'}),label='')
+        attrs={'class': 'input is-success', 'placeholder': 'Username', 'id': 'hello'}), label='')
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'input is-success',
             'placeholder': 'Password',
             'id': 'hi',
         }
-),label='')
+    ), label='')
+
 
 class NewStudentForm(forms.Form):
     name = forms.CharField(max_length=200)

@@ -25,7 +25,7 @@ SECRET_KEY = 'n!s4y_)djwcy^2#y#sran&5w)c4ftp3y&iz%402%+^*ns1-$gf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['45932295.ngrok.io', 'http://127.0.0.1:4040', 'localhost','http://127.0.0.1','http://127.0.0.1:8000']
 
 
 # Application definition
@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'crispy_forms',
 ]
-
+CRISPY_TEMPLATE_PACK = 'uni_form'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

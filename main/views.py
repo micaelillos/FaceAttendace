@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from main.form import SignUpForm, NewStudentForm
+from main.form import SignUpForm, NewStudentForm, LoginForm
 from .models import School, Teacher, Student, Class
 import json
 
@@ -11,6 +11,11 @@ import json
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
+
+def error_404(request, exception):
+    data = {}
+    return render(request, 'main/hello.html', data)
+
 
 
 def homepage(request):
@@ -77,7 +82,7 @@ def logout_request(request):
 
 def login_request(request):
     if not request.user.is_authenticated and request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -91,7 +96,7 @@ def login_request(request):
         else:
             messages.error(request, 'Invalid username or password')
 
-    form = AuthenticationForm()
+    form = LoginForm()
     return render(request, 'main/login.html', {'form': form})
 
 
@@ -206,6 +211,8 @@ def get_dict_of_origin_classes(school):
 def get_origin_class_list(school, origin_class):
     student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
     return student_list
+
+
 
 
 # json functions

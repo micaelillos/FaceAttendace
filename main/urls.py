@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
+from main import views as myapp_views
 from . import views
+from django.conf.urls import handler404, handler500
 
 app_name = 'main'
 
@@ -35,5 +38,6 @@ urlpatterns = [
     # Json response
     path('api/student/<str:student_name>', views.get_Student, name='get student'),
     path('api/teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),
-
 ]
+# handler 404
+handler404 = myapp_views.error_404

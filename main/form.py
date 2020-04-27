@@ -4,38 +4,11 @@ from django.contrib.auth.models import User
 
 
 class SignUpForm(UserCreationForm):
-    username = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Username', 'id': 'hello'}), label='')
-    first_name = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'First Name', 'id': 'hello'}), label='')
-
-    last_name = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Last Name', 'id': 'hello'}), label='')
-
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Email', 'id': 'hello'}), label='')
-
-    school_code = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'School Code', 'id': 'hello'}), label='')
-
-    teacher_id = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Teacher id', 'id': 'hello'}), label='')
-
-    password1 = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': 'input is-success',
-            'placeholder': 'Password',
-            'id': 'hi',
-        }
-    ), label='')
-
-    password2 = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': 'input is-success',
-            'placeholder': 'Password Confirmation',
-            'id': 'hi',
-        }
-    ), label='')
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(max_length=254)
+    school_code = forms.CharField(max_length=10)
+    teacher_id = forms.CharField(max_length=200, required=False, widget=forms.HiddenInput())
 
     class Meta:
         model = User

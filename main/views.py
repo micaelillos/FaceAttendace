@@ -38,6 +38,7 @@ def homepage(request):
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -67,7 +68,7 @@ def register(request):
         else:
             for msg in form.error_messages:
                 messages.error(request, form.error_messages[msg])
-                print('Error')
+                print(f'Error: {form.error_messages}')
 
     form = SignUpForm
     return render(request, 'main/register.html', {'form': form})

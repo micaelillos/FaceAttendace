@@ -34,6 +34,8 @@ urlpatterns = [
     path('view_student/<int:student_id>/', views.view_student, name='view student'),
     path('view_teacher_class_for_admin/<int:teacher_id>/<int:class_id>/', views.view_teacher_class_for_admin, name='view teacher class for admin'),
     path('add_student/<str:origin_class>/', views.add_student_to_origin, name='add student to origin class'),
+    path('view_school_for_new_class/', views.view_school_for_new_class, name='view school for new class'),
+    path('select_students_from_origin/<str:origin_class>/', views.select_students_from_origin, name='select students from origin'),
 
     # Json response
     path('api/student/<str:student_name>', views.get_Student, name='get student'),

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School</title>
+    {% extends "main/header.html" %}
+</head>
+<body>
+{% block content %}
+
+<h1>Origin Classes:</h1>
+{% for origin_class,students in classes.items %}
+<a href="/select_students_from_origin/{{origin_class}}">{{origin_class}}</a>
+
+<br>
+<br>
+{% endfor %}
+<a href="/">Back</a>
+{% endblock %}
+</body>
+</html>

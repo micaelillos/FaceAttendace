@@ -118,7 +118,6 @@ def save_embedding(image_link, embedding_link):
 detector = MTCNN()
 classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
-
 if __name__ == '__main__':
     class_pics = ['yoel1.jpg', 'p3.jpg']
     class_names = ['Yoel', 'Eitan']

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Class</title>
+    <title>Origin Class</title>
     {% extends "main/header.html" %}
 
 </head>
@@ -10,23 +10,25 @@
 {% block content %}
 
 <h1>Student List:</h1>
+<br>
 <table class="table">
     <tr>
         <th>Name</th>
-        <th> Origin Class</th>
     </tr>
-
     {% for student in student_list %}
     <tr>
-        <td><a href="/view_student/{{student.id}}"> {{student.name}} </a></td>
-        <td>{{student.origin_class}}</td>
+        <td>{{student.name}}</td>
+
     </tr>
     {% endfor %}
 
 </table>
 
-<br><br>
-<a href="{{path}}">Back</a>
+
+<br>
+<a href="/view_school_for_new_class/">Back</a>
+
+
 {% endblock %}
 </body>
 </html>

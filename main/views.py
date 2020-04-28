@@ -12,6 +12,13 @@ import json
 # teacher: 97641981
 # admin: 467713068
 
+
+# Todo in add_student function add a pic slot
+# Todo add tables for origin classes and student
+# Todo add option to create new class- tarted need to add check box
+# Todo add option to add students to a class
+
+
 def error_404(request, exception):
     data = {}
     return render(request, 'main/hello.html', data)
@@ -195,6 +202,28 @@ def add_student_to_origin(request, origin_class):
         return redirect('main:login')
 
 
+def view_school_for_new_class(request):
+    if request.user.is_authenticated:
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        classes = get_dict_of_origin_classes(teacher.school)
+        return render(request=request, template_name='main/view_school_for_new_class.html',
+                      context={'classes': classes})
+    else:
+        return redirect('main:login')
+
+
+def select_students_from_origin(request, origin_class):
+    if request.user.is_authenticated:
+        username = request.user.username
+        teacher = Teacher.objects.filter(username=username)[0]
+        school = teacher.school
+        student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
+        return render(request, 'main/select_students_from_origin.html', {'student_list': student_list,
+                                                                        'origin_class': origin_class})
+    else:
+        return redirect('main:login')
+
+
 # help functions
 def get_dict_of_origin_classes(school):
     students = Student.objects.filter(school=school).all()
@@ -214,9 +243,13 @@ def get_origin_class_list(school, origin_class):
     return student_list
 
 
-
-
 # json functions
+
+# Todo json authentication
+# Todo json get all students who were in class
+# Todo json get all classes for specific teacher
+
+
 def get_Student(request, student_name):
     if request.method == 'GET':
         try:
@@ -228,6 +261,7 @@ def get_Student(request, student_name):
         return HttpResponse(response, content_type='text/json')
 
 
+# Todo change username to id
 def get_all_teacher_classes(request, username):
     teacher = Teacher.objects.filter(username=username)[0]
     if request.method == 'GET':

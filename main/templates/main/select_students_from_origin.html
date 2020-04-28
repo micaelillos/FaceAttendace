@@ -11,22 +11,26 @@
 
 <h1>Student List:</h1>
 <br>
-<table class="table">
-    <tr>
-        <th>Name</th>
-    </tr>
-    {% for student in student_list %}
-    <tr>
-        <td>{{student.name}}</td>
 
-    </tr>
-    {% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        {% for student in student_list %}
+        <tr>
+            <td>{{student.name}}</td>
+            <td><input type='checkbox' name="students" value="{{student.name}}"></td>
+        </tr>
+        {% endfor %}
 
-</table>
+    </table>
 
-
+    <button type="submit">create</button>
+</form>
 <br>
-<a href="/view_school_for_new_class/">Back</a>
+<a href="/view_school_for_new_class/{{class_id}}">Back</a>
 
 
 {% endblock %}

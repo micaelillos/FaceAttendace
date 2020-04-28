@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Class</title>
+</head>
+<body>
+{% block content %}
+
+{% csrf_token %}
+<form method="POST">
+    {% csrf_token %}
+    <p> Please enter class name:</p>
+    {{form.as_p}}
+    <button type="submit">add</button>
+</form>
+<br>
+<a href="/">Back</a>
+{% endblock %}
+</body>
+</html>

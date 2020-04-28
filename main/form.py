@@ -39,3 +39,7 @@ class LoginForm(AuthenticationForm):
 class NewStudentForm(forms.Form):
     name = forms.CharField(max_length=200)
     embedding_link = forms.CharField(max_length=200)
+
+
+class newClassForm(forms.Form):
+    name = forms.CharField(max_length=200)

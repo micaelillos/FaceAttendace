@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from main.form import SignUpForm, NewStudentForm, LoginForm
+from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class
 import json
 
@@ -145,7 +145,7 @@ def view_class(request, class_id):
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list, 'path': '/'})
+                      context={'student_list': student_list, 'path': '/', 'class_id': class_id})
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
@@ -202,24 +202,55 @@ def add_student_to_origin(request, origin_class):
         return redirect('main:login')
 
 
-def view_school_for_new_class(request):
+def create_new_class(request):
     if request.user.is_authenticated:
-        teacher = Teacher.objects.filter(username=request.user.username)[0]
-        classes = get_dict_of_origin_classes(teacher.school)
-        return render(request=request, template_name='main/view_school_for_new_class.html',
-                      context={'classes': classes})
+        if request.method == 'POST':
+            form = newClassForm(request.POST)
+
+            if form.is_valid():
+                teacher = Teacher.objects.filter(username=request.user.username)[0]
+                class_name = form.cleaned_data.get('name')
+                new_class = Class(name=class_name, teacher=teacher)
+                new_class.save()
+                return redirect('main:view school for new class', new_class.id)
+        else:
+            form = newClassForm
+            return render(request, 'main/create_new_class.html', {'form': form})
     else:
         return redirect('main:login')
 
 
-def select_students_from_origin(request, origin_class):
+def view_school_for_new_class(request, class_id):
+    if request.user.is_authenticated:
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        classes = get_dict_of_origin_classes(teacher.school)
+        return render(request=request, template_name='main/view_school_for_new_class.html',
+                      context={'classes': classes, 'class_id': class_id})
+    else:
+        return redirect('main:login')
+
+
+def select_students_from_origin(request, origin_class, class_id):
     if request.user.is_authenticated:
         username = request.user.username
         teacher = Teacher.objects.filter(username=username)[0]
         school = teacher.school
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
-        return render(request, 'main/select_students_from_origin.html', {'student_list': student_list,
-                                                                        'origin_class': origin_class})
+
+        print(request.method)
+        if request.method == 'GET':
+            return render(request, 'main/select_students_from_origin.html', {'student_list': student_list,
+                                                                             'origin_class': origin_class,
+                                                                             'class_id': class_id})
+        else:
+            wanted = request.POST.getlist('students')
+            class_ = Class.objects.filter(id=class_id)[0]
+            for student in student_list:
+                if student.name in wanted:
+                    class_.add_student(student)
+
+            return redirect('main:homepage')
+
     else:
         return redirect('main:login')
 

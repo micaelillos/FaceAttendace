@@ -13,7 +13,7 @@
 <form method="POST">
     {% csrf_token %}
     <p> Please enter class name:</p>
-    {{form.as_p}}
+    <input name="name">
     <button type="submit">add</button>
 </form>
 <br>

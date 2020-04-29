@@ -5,19 +5,35 @@
     <title>Origin Class</title>
     {% extends "main/header.html" %}
 
+
 </head>
 <body>
 {% block content %}
 
+
+
 <h1>Student List:</h1>
 <br>
 
-<form method="POST">
-    {% csrf_token %}
+
     <table class="table">
         <tr>
             <th>Name</th>
+            <td>
+          <button onclick="select()">select all</button>
+            </td>
         </tr>
+        <script>
+
+    function select() {
+ let checkboxes = document.getElementsByName('students');
+  for (let checkbox of checkboxes) {
+    checkbox.checked = !checkbox.checked;
+  }
+}
+</script>
+        <form method="POST">
+    {% csrf_token %}
         {% for student in student_list %}
         <tr>
             <td>{{student.name}}</td>
@@ -30,6 +46,7 @@
         <button type="submit">create</button>
     {% else %}
         <button type="submit">add</button>
+
     {% endif %}
 </form>
 <br>
@@ -37,5 +54,6 @@
 
 
 {% endblock %}
+
 </body>
 </html>

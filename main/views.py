@@ -7,7 +7,7 @@ from django.contrib import messages
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class
 import json
-
+from django.utils.encoding import force_text
 
 # Create your views here.
 # teacher: 97641981
@@ -270,10 +270,10 @@ def new_origin_class(request):
             if form.is_valid():
                 teacher = Teacher.objects.filter(username=request.user.username)[0]
                 school = teacher.school
-                class_name = form.cleaned_data.get('name')
+                class_name = request.POST.getlist('name')[0]
                 school.add_origin_class(class_name)
 
-                return redirect('admin homepage')
+                return redirect('main:admin homepage')
         else:
             form = newClassForm
             return render(request, 'main/create_new_class.html', {'form': form})

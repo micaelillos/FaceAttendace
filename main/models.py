@@ -11,12 +11,11 @@ class School(models.Model):
                                     default=str(randint(10000000, 99999999)))
     admin_code = models.CharField(max_length=9, unique=True, blank=True,
                                   default=str(randint(100000000, 999999999)))
-    origin_class_list = models.CharField(max_length=2000, default='')
+    origin_class_list = models.CharField(max_length=2000, default='', blank=True)
 
     def add_origin_class(self, origin_class):
         if origin_class not in self.get_origin_class_list():
             current = str(self.origin_class_list)
-            print(current)
             current += str(origin_class) + ' '
             self.origin_class_list = current
             self.save()
@@ -41,6 +40,13 @@ class School(models.Model):
 
     def __str__(self):
         return self.name
+
+    def _delete_origin_class(self, origin_class):
+        oc_list = self.get_origin_class_list()
+        self.origin_class_list = ''
+        for oc in oc_list:
+            if oc != origin_class:
+                self.add_origin_class(oc)
 
 
 class Teacher(models.Model):

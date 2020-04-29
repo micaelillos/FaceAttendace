@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
@@ -15,7 +16,7 @@ import json
 
 # Todo in add_student function add a pic slot
 # Todo add tables for origin classes and student
-# Todo add option to create new class- tarted need to add check box
+# Todo add option to create new class- started need to add check box
 # Todo add option to add students to a class
 
 
@@ -145,7 +146,8 @@ def view_class(request, class_id):
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list, 'path': '/', 'class_id': class_id})
+                      context={'student_list': student_list, 'path': '/', 'class_id': class_id,
+                               'class_name': class_.name})
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
@@ -224,13 +226,18 @@ def view_school_for_new_class(request, class_id):
     if request.user.is_authenticated:
         teacher = Teacher.objects.filter(username=request.user.username)[0]
         classes = get_dict_of_origin_classes(teacher.school)
+
+        url = str(request.META.get('HTTP_REFERER'))
+        button = '0'  # for add
+        if 'create_new_class' in url:
+            button = '1'  # for Create
         return render(request=request, template_name='main/view_school_for_new_class.html',
-                      context={'classes': classes, 'class_id': class_id})
+                      context={'classes': classes, 'class_id': class_id, 'button': button})
     else:
         return redirect('main:login')
 
 
-def select_students_from_origin(request, origin_class, class_id):
+def select_students_from_origin(request, button, origin_class, class_id):
     if request.user.is_authenticated:
         username = request.user.username
         teacher = Teacher.objects.filter(username=username)[0]
@@ -239,9 +246,9 @@ def select_students_from_origin(request, origin_class, class_id):
 
         print(request.method)
         if request.method == 'GET':
-            return render(request, 'main/select_students_from_origin.html', {'student_list': student_list,
-                                                                             'origin_class': origin_class,
-                                                                             'class_id': class_id})
+            return render(request, 'main/select_students_from_origin.html',
+                          {'student_list': student_list, 'origin_class': origin_class, 'class_id': class_id,
+                           'button': button})
         else:
             wanted = request.POST.getlist('students')
             class_ = Class.objects.filter(id=class_id)[0]
@@ -255,16 +262,58 @@ def select_students_from_origin(request, origin_class, class_id):
         return redirect('main:login')
 
 
+def new_origin_class(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = newClassForm(request.POST)
+
+            if form.is_valid():
+                teacher = Teacher.objects.filter(username=request.user.username)[0]
+                school = teacher.school
+                class_name = form.cleaned_data.get('name')
+                school.add_origin_class(class_name)
+
+                return redirect('admin homepage')
+        else:
+            form = newClassForm
+            return render(request, 'main/create_new_class.html', {'form': form})
+    else:
+        return redirect('main:login')
+
+
+def delete_class_verification(request, class_id):
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        # will raise error if user tries to delete someone else class
+
+        return render(request=request, template_name='main/delete_class_verification.html',
+                      context={'path': '/', 'class_id': class_id, 'class_name': class_.name})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+
+def delete_class(request, class_id):
+    if request.user.is_authenticated:
+
+        teacher = Teacher.objects.filter(username=request.user.username)[0]
+        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        class_.delete()
+        return redirect('main:homepage')
+    else:
+        form = AuthenticationForm()
+        return render(request, 'main/login.html', {'form': form})
+
+
 # help functions
 def get_dict_of_origin_classes(school):
     students = Student.objects.filter(school=school).all()
-    classes = {}
+    classes = {class_name: [] for class_name in school.get_origin_class_list()}
     for student in students:
         key = student.origin_class
-        if classes.get(key) is None:
-            classes[key] = [student]
-        else:
-            classes[key].append(student)
+        classes[key].append(student)
 
     return classes
 

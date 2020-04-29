@@ -26,8 +26,11 @@
         {% endfor %}
 
     </table>
-
-    <button type="submit">create</button>
+    {% if button == '1' %}
+        <button type="submit">create</button>
+    {% else %}
+        <button type="submit">add</button>
+    {% endif %}
 </form>
 <br>
 <a href="/view_school_for_new_class/{{class_id}}">Back</a>

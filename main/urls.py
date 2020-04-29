@@ -35,8 +35,12 @@ urlpatterns = [
     path('view_teacher_class_for_admin/<int:teacher_id>/<int:class_id>/', views.view_teacher_class_for_admin, name='view teacher class for admin'),
     path('add_student/<str:origin_class>/', views.add_student_to_origin, name='add student to origin class'),
     path('view_school_for_new_class/<str:class_id>/', views.view_school_for_new_class, name='view school for new class'),
-    path('select_students_from_origin/<str:origin_class>/<str:class_id>/', views.select_students_from_origin, name='select students from origin'),
+    path('select_students_from_origin/<str:button>/<str:origin_class>/<str:class_id>/', views.select_students_from_origin, name='select students from origin'),
     path('create_new_class/', views.create_new_class, name='create new class'),
+    path('new_origin_class/', views.new_origin_class, name='new origin class'),
+    path('delete_class_verification/<str:class_id>/', views.delete_class_verification, name='delete class verification'),
+    path('delete_class/<str:class_id>/', views.delete_class, name='delete class'),
+
     # Json response
     path('api/student/<str:student_name>', views.get_Student, name='get student'),
     path('api/teacher/<str:username>', views.get_all_teacher_classes, name='get all teacher classes'),

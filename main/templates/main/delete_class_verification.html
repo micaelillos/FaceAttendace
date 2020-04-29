@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Class</title>
+    {% extends "main/header.html" %}
+</head>
+<body>
+{% block content %}
+
+    <h1> Are you sure you want to delete {{class_name}}?</h1>
+    <a href="/delete_class/{{class_id}}">Yes</a>
+    <br>
+    <a href="/view_class/{{class_id}}">No</a>
+{% endblock %}
+
+</body>
+</html>

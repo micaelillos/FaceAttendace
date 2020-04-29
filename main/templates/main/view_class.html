@@ -8,7 +8,7 @@
 </head>
 <body>
 {% block content %}
-
+<h1><strong>{{class_name}}</strong></h1>
 <h1>Student List:</h1>
 <table class="table">
     <tr>
@@ -27,6 +27,8 @@
 
 <br>
 <a href="/view_school_for_new_class/{{class_id}}">Add students to class</a>
+<br>
+<a href="/delete_class_verification/{{class_id}}">Delete class</a>
 <br>
 <a href="{{path}}">Back</a>
 {% endblock %}

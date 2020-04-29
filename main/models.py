@@ -11,6 +11,33 @@ class School(models.Model):
                                     default=str(randint(10000000, 99999999)))
     admin_code = models.CharField(max_length=9, unique=True, blank=True,
                                   default=str(randint(100000000, 999999999)))
+    origin_class_list = models.CharField(max_length=2000, default='')
+
+    def add_origin_class(self, origin_class):
+        if origin_class not in self.get_origin_class_list():
+            current = str(self.origin_class_list)
+            print(current)
+            current += str(origin_class) + ' '
+            self.origin_class_list = current
+            self.save()
+        else:
+            print('Origin class already created')
+
+    def get_origin_class_list(self):
+        origin_list = []
+        l = str(self.origin_class_list)
+        class_name = ''
+        for i, _ in enumerate(l):
+            if l[i] != ' ':
+                class_name += l[i]
+            else:
+                origin_list.append(class_name)
+                class_name = ''
+
+        if class_name != ' ' and class_name != '':
+            origin_list.append(class_name)
+
+        return origin_list
 
     def __str__(self):
         return self.name

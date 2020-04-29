@@ -6,29 +6,31 @@
     {% extends "main/header.html" %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"
 </head>
+
 <body>
 {% block content %}
 <br>
 <div class="container">
     <section class="hero is-primary">
-    <div class="hero-body">
-<h1 class="title">Welcome {{request.user.username}}</h1>
+        <div class="hero-body">
+            <h1 class="title">Welcome {{request.user.username}}</h1>
         </div>
     </section>
 
-<br>
+    <br>
 
-<div class="list is-hoverable">
-    {% for class in classes %}
+    <div class="list is-hoverable">
+        {% for class in classes %}
 
-        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item" href="/view_class/{{class.id}}">{{class.name}}</a>
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_class/{{class.id}}">{{class.name}}</a>
 
 
-    {% endfor %}
+        {% endfor %}
 
-        </div>
-<br>
-<a class="tag is-primary is-large is-light" href="create_new_class/">New class</a>
+    </div>
+    <br>
+    <a class="tag is-primary is-large is-light" href="create_new_class/">New class</a>
 </div>
 {% endblock %}
 </body>

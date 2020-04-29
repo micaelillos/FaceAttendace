@@ -7,16 +7,26 @@
 </head>
 <body>
 {% block content %}
-
-<h1>hello {{request.user.name}}</h1>
-{% for class in classes %}
-<a href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
 <br>
-{% endfor %}
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">{{teacher.name}}</h1>
+        </div>
+    </section>
+    <div class="list is-hoverable">
+        {% for class in classes %}
 
-<br><br>
-<a href="/">Back</a>
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
 
+
+        {% endfor %}
+
+    </div>
+
+    <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+</div>
 {% endblock %}
 </body>
 </html>

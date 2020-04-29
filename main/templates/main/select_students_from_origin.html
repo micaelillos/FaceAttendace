@@ -9,18 +9,20 @@
 </head>
 <body>
 {% block content %}
-
-
-
-<h1>Student List:</h1>
 <br>
+<div class="container">
+
+    <h1 class="subtitle">Student List:</h1>
 
 
-    <table class="table">
+    <br>
+
+
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <tr>
             <th>Name</th>
             <td>
-          <button onclick="select()">select all</button>
+                <button onclick="select()" class="button is-link is-light is-small">select all</button>
             </td>
         </tr>
         <script>
@@ -31,28 +33,30 @@
     checkbox.checked = !checkbox.checked;
   }
 }
-</script>
+
+
+        </script>
         <form method="POST">
-    {% csrf_token %}
-        {% for student in student_list %}
-        <tr>
-            <td>{{student.name}}</td>
-            <td><input type='checkbox' name="students" value="{{student.name}}"></td>
-        </tr>
-        {% endfor %}
+            {% csrf_token %}
+            {% for student in student_list %}
+            <tr>
+                <td>{{student.name}}</td>
+                <td><input type='checkbox' name="students" value="{{student.name}}"></td>
+            </tr>
+            {% endfor %}
 
     </table>
     {% if button == '1' %}
-        <button type="submit">create</button>
+    <button type="submit" class="button is-success is-light">create</button>
     {% else %}
-        <button type="submit">add</button>
+    <button type="submit" class="button is-success is-light">add</button>
 
     {% endif %}
-</form>
-<br>
-<a href="/view_school_for_new_class/{{class_id}}">Back</a>
+    </form>
+    <a style="float:right;" class="tag is-info is-large is-light"
+       href="/view_school_for_new_class/{{class_id}}">Back</a>
 
-
+</div>
 {% endblock %}
 
 </body>

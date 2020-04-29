@@ -172,8 +172,8 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list,
-                               'path': '/view_teacher/' + str(teacher_id)})
+                      context={'student_list': student_list, 'class_name': class_.name,
+                               'path': '/view_teacher/' + str(teacher_id), 'class_id': class_.id})
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})
@@ -255,8 +255,11 @@ def select_students_from_origin(request, button, origin_class, class_id):
             for student in student_list:
                 if student.name in wanted:
                     class_.add_student(student)
+            if teacher.is_admin:
 
-            return redirect('main:homepage')
+                return redirect('main:view teacher class for admin', class_.teacher.id, class_id)
+            else:
+                return redirect('main:view class', class_id)
 
     else:
         return redirect('main:login')
@@ -285,8 +288,11 @@ def delete_class_verification(request, class_id):
     if request.user.is_authenticated:
 
         teacher = Teacher.objects.filter(username=request.user.username)[0]
-        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
-        # will raise error if user tries to delete someone else class
+
+        class_ = Class.objects.filter(id=class_id)[0]
+        if teacher.school != class_.teacher.school:
+            raise Exception('Not allowed to delete this class')
+            # will raise error if user tries to delete someone else class
 
         return render(request=request, template_name='main/delete_class_verification.html',
                       context={'path': '/', 'class_id': class_id, 'class_name': class_.name})
@@ -299,9 +305,16 @@ def delete_class(request, class_id):
     if request.user.is_authenticated:
 
         teacher = Teacher.objects.filter(username=request.user.username)[0]
-        class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
+        class_ = Class.objects.filter(id=class_id)[0]
+        if teacher.school != class_.teacher.school:
+            raise Exception('Not allowed to delete this class')
+            # will raise error if user tries to delete someone else class
+
         class_.delete()
-        return redirect('main:homepage')
+        if teacher.is_admin:
+            return redirect('main:view teacher', class_.teacher.id)
+        else:
+            return redirect('main:homepage')
     else:
         form = AuthenticationForm()
         return render(request, 'main/login.html', {'form': form})

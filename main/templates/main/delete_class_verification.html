@@ -7,12 +7,13 @@
 </head>
 <body>
 {% block content %}
+<br>
+<div class="container">
 
-    <h1> Are you sure you want to delete {{class_name}}?</h1>
-    <a href="/delete_class/{{class_id}}">Yes</a>
-    <br>
-    <a href="/view_class/{{class_id}}">No</a>
+    <h1 class="title"> Are you sure you want to delete {{class_name}}?</h1>
+    <a class="button is-danger is-light" href="/delete_class/{{class_id}}">Yes</a>
+    <a style="margin-left:20px;" class="button is-info is-light" href="/view_class/{{class_id}}">No</a>
+</div>
 {% endblock %}
-
 </body>
 </html>

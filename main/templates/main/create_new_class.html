@@ -8,16 +8,21 @@
 </head>
 <body>
 {% block content %}
-
-{% csrf_token %}
-<form method="POST">
-    {% csrf_token %}
-    <p> Please enter class name:</p>
-    <input name="name">
-    <button type="submit">add</button>
-</form>
 <br>
-<a href="/">Back</a>
+<div class="container">
+
+    <h1 class="title">Please enter class name</h1>
+
+    {% csrf_token %}
+    <form method="POST">
+        {% csrf_token %}
+        <input class="input is-small " name="name">
+        <br><br>
+        <button class="button is-success is-light" type="submit">add</button>
+        <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+
+    </form>
+</div>
 {% endblock %}
 </body>
 </html>

@@ -7,24 +7,36 @@
 </head>
 <body>
 {% block content %}
-
-<h1>Origin Classes:</h1>
-{% for origin_class,students in classes.items %}
-<a href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
-
 <br>
-<br>
-{% endfor %}
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">Welcome {{request.user.username}}</h1>
+        </div>
+    </section>
 
-<a href="/new_origin_class">Add origin class</a>
-<br>
+    <br>
+    <h1 class="title">Origin Classes:</h1>
+    <div class="list is-hoverable">
+        {% for origin_class,students in classes.items %}
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
 
-<h1>List of Teachers:</h1>
-{% for teacher in teachers %}
-<a href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
-{% endfor %}
+        {% endfor %}
 
+    </div>
 
+    <a class="tag is-primary is-large is-light" href="/new_origin_class">Add origin class</a>
+
+    <br><br>
+
+    <h1 class="title">List of Teachers:</h1>
+     <div class="list is-hoverable">
+    {% for teacher in teachers %}
+    <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
+    {% endfor %}
+     </div>
+</div>
 {% endblock %}
 </body>
 </html>

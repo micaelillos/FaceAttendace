@@ -7,15 +7,23 @@
 </head>
 <body>
 {% block content %}
+<br>
+<div class="container">
 
-<h1>Choose Class From Which To Add Students</h1>
-{% for origin_class,students in classes.items %}
-<div class="list is-hoverable">
-<a class="list-item" href="/select_students_from_origin/{{button}}/{{origin_class}}/{{class_id}}">{{origin_class}}</a>
+    <h1 class="title">Choose Class From Which To Add Students:</h1>
+
+    <div class="list is-hoverable">
+
+        {% for origin_class,students in classes.items %}
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/select_students_from_origin/{{button}}/{{origin_class}}/{{class_id}}">{{origin_class}}</a>
+
+        {% endfor %}
+    </div>
+
+    <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+
 </div>
-
-{% endfor %}
-<a href="/">Back</a>
 {% endblock %}
 </body>
 </html>

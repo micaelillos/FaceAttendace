@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <title>Home</title>
     {% extends "main/header.html" %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"
 </head>
 <body>
 {% block content %}
-
-<h1>hello {{request.user.username}}</h1>
 <br>
-<table class="table">
+<div class="container">
+    <section class="hero is-primary">
+    <div class="hero-body">
+<h1 class="title">Welcome {{request.user.username}}</h1>
+        </div>
+    </section>
+
+<br>
+
+<div class="list is-hoverable">
     {% for class in classes %}
-    <tr>
-        <td><a href="/view_class/{{class.id}}">{{class.name}}</a></td>
-    </tr>
+
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item" href="/view_class/{{class.id}}">{{class.name}}</a>
+
 
     {% endfor %}
-</table>
-<br>
-<a href="create_new_class/">Create a new class</a>
 
+        </div>
+<br>
+<a class="tag is-primary is-large is-light" href="create_new_class/">New class</a>
+</div>
 {% endblock %}
 </body>
 </html>

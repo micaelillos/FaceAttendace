@@ -8,12 +8,12 @@
 <body>
 {% block content %}
 
-<h1>Origin Classes:</h1>
+<h1>Choose Class From Which To Add Students</h1>
 {% for origin_class,students in classes.items %}
-<a href="/select_students_from_origin/{{button}}/{{origin_class}}/{{class_id}}">{{origin_class}}</a>
+<div class="list is-hoverable">
+<a class="list-item" href="/select_students_from_origin/{{button}}/{{origin_class}}/{{class_id}}">{{origin_class}}</a>
+</div>
 
-<br>
-<br>
 {% endfor %}
 <a href="/">Back</a>
 {% endblock %}

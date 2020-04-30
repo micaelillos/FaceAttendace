@@ -25,6 +25,10 @@ def error_404(request, exception):
     return render(request, 'main/hello.html', data)
 
 
+def landing_page(request):
+    return render(request, 'main/landing_page.html')
+
+
 def homepage(request):
     if request.user.is_authenticated:
 
@@ -39,8 +43,7 @@ def homepage(request):
             return render(request=request, template_name='main/admin_home.html',
                           context={'classes': classes, 'teachers': teachers})
     else:
-        form = AuthenticationForm()
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def register(request):
@@ -104,8 +107,7 @@ def login_request(request):
         else:
             messages.error(request, 'Invalid username or password')
 
-    form = LoginForm()
-    return render(request, 'main/login.html', {'form': form})
+    return redirect('main:landing page')
 
 
 def view_school(request):
@@ -116,8 +118,7 @@ def view_school(request):
         return render(request, 'main/view_school.html', {'classes': classes})
 
     else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:landing page')
 
 
 def view_teacher(request, teacher_id):
@@ -127,7 +128,7 @@ def view_teacher(request, teacher_id):
         return render(request=request, template_name='main/view_teacher.html',
                       context={'classes': classes, 'teacher': teacher})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def view_student(request, student_id):
@@ -135,7 +136,7 @@ def view_student(request, student_id):
         student = Student.objects.filter(id=student_id)[0]
         return render(request, 'main/view_student.html', {'student': student})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def view_class(request, class_id):
@@ -148,8 +149,7 @@ def view_class(request, class_id):
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
                                'class_name': class_.name})
     else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:landing page')
 
 
 def view_origin_class(request, origin_class):
@@ -161,7 +161,7 @@ def view_origin_class(request, origin_class):
         return render(request, 'main/view_origin_class.html', {'student_list': student_list,
                                                                'origin_class': origin_class})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def view_teacher_class_for_admin(request, teacher_id, class_id):
@@ -174,8 +174,7 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
                       context={'student_list': student_list, 'class_name': class_.name,
                                'path': '/view_teacher/' + str(teacher_id), 'class_id': class_.id})
     else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:landing page')
 
 
 def add_student_to_origin(request, origin_class):
@@ -209,7 +208,7 @@ def add_student_to_origin(request, origin_class):
             form = NewStudentForm()
             return render(request, 'main/add_student.html', {'form': form})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def create_new_class(request):
@@ -227,7 +226,7 @@ def create_new_class(request):
             form = newClassForm
             return render(request, 'main/create_new_class.html', {'form': form})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def view_school_for_new_class(request, class_id):
@@ -242,7 +241,7 @@ def view_school_for_new_class(request, class_id):
         return render(request=request, template_name='main/view_school_for_new_class.html',
                       context={'classes': classes, 'class_id': class_id, 'button': button})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def select_students_from_origin(request, button, origin_class, class_id):
@@ -270,7 +269,7 @@ def select_students_from_origin(request, button, origin_class, class_id):
                 return redirect('main:view class', class_id)
 
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def new_origin_class(request):
@@ -289,7 +288,7 @@ def new_origin_class(request):
             form = newClassForm
             return render(request, 'main/create_new_class.html', {'form': form})
     else:
-        return redirect('main:login')
+        return redirect('main:landing page')
 
 
 def delete_class_verification(request, class_id):
@@ -305,8 +304,7 @@ def delete_class_verification(request, class_id):
         return render(request=request, template_name='main/delete_class_verification.html',
                       context={'path': '/', 'class_id': class_id, 'class_name': class_.name})
     else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:landing page')
 
 
 def delete_class(request, class_id):
@@ -324,8 +322,7 @@ def delete_class(request, class_id):
         else:
             return redirect('main:homepage')
     else:
-        form = AuthenticationForm()
-        return render(request, 'main/login.html', {'form': form})
+        return redirect('main:landing page')
 
 
 # help functions

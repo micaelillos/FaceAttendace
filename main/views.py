@@ -107,7 +107,8 @@ def login_request(request):
         else:
             messages.error(request, 'Invalid username or password')
 
-    return redirect('main:landing page')
+    form = LoginForm()
+    return render(request, 'main/login.html', {'form': form})
 
 
 def view_school(request):

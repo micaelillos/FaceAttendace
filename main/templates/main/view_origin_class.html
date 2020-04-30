@@ -8,18 +8,37 @@
 </head>
 <body>
 {% block content %}
+<br>
 
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">{{origin_class}}</h1>
+
+        </div>
+    </section>
+    <br/>
 <h1>Student List:</h1>
-{% for student in student_list %}
-<a href="/view_student/{{student.id}}"> {{student.name}} </a>
-<br>
 
-{% endfor %}
-<br>
-<a href="/add_student/{{origin_class}}">Add a student</a>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <tr>
+            <th>Name</th>
+            <th> Id</th>
+        </tr>
 
-<br>
-<a href="/admin_home">Back</a>
+        {% for student in student_list %}
+        <tr>
+            <td> {{student.name}}</td>
+            <td>id</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+<a class="tag is-primary is-large is-light"href="/add_student/{{origin_class}}">Add a student</a>
+
+<a style="float:right;" class="tag is-info is-large is-light" href="/admin_home">Back</a>
 
 
 {% endblock %}

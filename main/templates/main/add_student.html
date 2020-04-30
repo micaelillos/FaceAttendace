@@ -16,25 +16,31 @@
 
 
 
+
+
+
     </style>
 </head>
 <body>
 {% block content %}
+<br>
 
-{% csrf_token %}
-<form method="POST" enctype="multipart/form-data">
+<div class="container">
+
+    <h1 class="title">Enter student's information</h1>
+
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add</button>
-</form>
-{% if uploaded_file_url %}
-<p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-{% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-<br>
-<br>
-<a href="{{ request.META.HTTP_REFERER }}" class="button is-light" class>Back</a>
+        {{ form.as_p }}
+        <br>
+        <button type="submit" class="button is-success is-light">Add</button>
+        <a style="float:right;" href="{{ request.META.HTTP_REFERER }}" class="button is-light is-info" class>Back</a>
+    </form>
 
+
+</div>
 {% endblock %}
 </body>
 </html>

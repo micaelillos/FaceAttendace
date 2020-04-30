@@ -121,3 +121,8 @@ class Class(models.Model):
             file.close()
 
         return embeddings, names
+
+
+class TemporaryStudent(models.Model):
+    name = models.CharField(max_length=200)
+    student_img = models.ImageField(upload_to='images/')

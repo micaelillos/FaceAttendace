@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from main.models import *
 
 
 class SignUpForm(UserCreationForm):
@@ -36,9 +37,10 @@ class LoginForm(AuthenticationForm):
     ), label='')
 
 
-class NewStudentForm(forms.Form):
-    name = forms.CharField(max_length=200)
-    embedding_link = forms.CharField(max_length=200)
+class NewStudentForm(forms.ModelForm):
+    class Meta:
+        model = TemporaryStudent
+        fields = ['name', 'student_img']
 
 
 class newClassForm(forms.Form):

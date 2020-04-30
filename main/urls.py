@@ -16,9 +16,10 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 from main import views as myapp_views
+from mysite import settings
 from . import views
 from django.conf.urls import handler404, handler500
-
+from django.conf.urls.static import static
 app_name = 'main'
 
 urlpatterns = [
@@ -47,3 +48,8 @@ urlpatterns = [
 ]
 # handler 404
 handler404 = myapp_views.error_404
+
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

@@ -5,10 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
-from .models import School, Teacher, Student, Class
+from .models import School, Teacher, Student, Class, TemporaryStudent
 import json
 from django.utils.encoding import force_text
-
+from .face_recognition import save_embedding, face_recognition_init
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
@@ -71,7 +71,6 @@ def register(request):
                 print('error')
                 # add error: school code not found
                 pass
-
             return redirect('main:homepage')
         else:
             for msg in form.error_messages:
@@ -182,23 +181,32 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
 def add_student_to_origin(request, origin_class):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = NewStudentForm(request.POST)
+            form = NewStudentForm(request.POST, request.FILES)
             if form.is_valid():
+                form.save()
+                face_recognition_init()
                 username = request.user.username
                 teacher = Teacher.objects.filter(username=username)[0]
                 school = teacher.school
                 name = form.cleaned_data.get('name')
-                embedding_link = form.cleaned_data.get('embedding_link')
+                image = form.cleaned_data.get('student_img')
+                s = TemporaryStudent.objects.filter(name=name)[0]
+                image_link = 'media/images/' + str(image)
+                embedding_link = 'main/student_embeddings/' + name
+                save_embedding(image_link, embedding_link)
+                s.delete()
+
                 new_student = Student(name=name, embedding_link=embedding_link,
                                       origin_class=origin_class, school=school)
                 new_student.save()
+
                 # add added student message
                 return redirect('main:view origin class', origin_class=origin_class)
             else:
                 # add not valid form error
                 return render(request, 'main/add_student.html', {'form': form})
         else:
-            form = NewStudentForm
+            form = NewStudentForm()
             return render(request, 'main/add_student.html', {'form': form})
     else:
         return redirect('main:login')

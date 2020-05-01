@@ -32,7 +32,7 @@ def extract_face_for_one(filename, required_size=(224, 224)):
 
 
 # extract faces for class picture
-def extract_faces_for_class(filename, required_size=(224, 224)):
+def extract_faces_for_class(filename, required_size=(224, 224), student=False):
 
     pixels = cv2.imread(filename)
     # perform face detection
@@ -51,17 +51,22 @@ def extract_faces_for_class(filename, required_size=(224, 224)):
         face_array = asarray(face)
         # cv2.imshow('im', face_array)
         faces.append(face_array)
+        if student and len(faces) > 1:
+            return -1
     return faces
 
 
 # this is what we need to use on every student in order to get embedding
 # extract faces and calculate face embeddings for a list of photo files
-def get_embeddings(filenames):
+def get_embeddings(filenames, student=False):
     # extract faces
     if isinstance(filenames, list):
         faces = [extract_face_for_one(f) for f in filenames]
     else:
-        faces = [extract_face_for_one(filenames)]
+        faces = extract_faces_for_class(filenames, student=student)
+        if faces == -1:
+            faces = [extract_face_for_one(filenames)]
+
     # convert into an array of samples
     samples = asarray(faces, 'float32')
     # prepare the face for the model, e.g. center pixels
@@ -108,7 +113,7 @@ def find_known_faces(class_embeddings, class_names, filename):
 
 # getting an image link and saving embedding in wanted link
 def save_embedding(image_link, embedding_link):
-    embedding = get_embeddings(image_link)
+    embedding = get_embeddings(image_link, student=True)
     file = open(embedding_link, 'wb')
     pickle.dump(embedding, file)
     file.close()
@@ -119,9 +124,10 @@ def face_recognition_init():
     global detector
     global classifier
     global model
+
     if detector == '':
         detector = MTCNN()
-        classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        classifier = cv2.CascadeClassifier('/Users/eitan/new_site/main/haarcascade_frontalface_default.xml')
         model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 
 

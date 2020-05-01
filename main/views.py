@@ -160,6 +160,7 @@ def view_origin_class(request, origin_class):
         teacher = Teacher.objects.filter(username=username)[0]
         school = teacher.school
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
+        student_list = sorted(student_list, key=lambda x: x.name)
         return render(request, 'main/view_origin_class.html', {'student_list': student_list,
                                                                'origin_class': origin_class})
     else:
@@ -181,11 +182,11 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
 
 def add_student_to_origin(request, origin_class):
     if request.user.is_authenticated:
+        face_recognition_init()
         if request.method == 'POST':
             form = NewStudentForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                face_recognition_init()
                 username = request.user.username
                 teacher = Teacher.objects.filter(username=username)[0]
                 school = teacher.school

@@ -146,6 +146,7 @@ def view_class(request, class_id):
         teacher = Teacher.objects.filter(username=request.user.username)[0]
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
+        student_list.sort(key=lambda x: x.origin_class, reverse=True)
         return render(request=request, template_name='main/view_class.html',
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
                                'class_name': class_.name})
@@ -329,7 +330,9 @@ def delete_class(request, class_id):
 # help functions
 def get_dict_of_origin_classes(school):
     students = Student.objects.filter(school=school).all()
-    classes = {class_name: [] for class_name in school.get_origin_class_list()}
+    class_list = school.get_origin_class_list()
+    class_list.sort(reverse=True)
+    classes = {class_name: [] for class_name in class_list}
     for student in students:
         key = student.origin_class
         classes[key].append(student)

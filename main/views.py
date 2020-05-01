@@ -7,8 +7,11 @@ from django.contrib import messages
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent
 import json
+from random import randint
 from django.utils.encoding import force_text
 from .face_recognition import save_embedding, face_recognition_init
+import os
+
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
@@ -194,10 +197,10 @@ def add_student_to_origin(request, origin_class):
                 image = form.cleaned_data.get('student_img')
                 s = TemporaryStudent.objects.filter(name=name)[0]
                 image_link = 'media/images/' + str(image)
-                embedding_link = 'main/student_embeddings/' + name
+                embedding_link = 'main/student_embeddings/' + name + str(randint(10000, 99999))
                 save_embedding(image_link, embedding_link)
                 s.delete()
-
+                os.remove(image_link)
                 new_student = Student(name=name, embedding_link=embedding_link,
                                       origin_class=origin_class, school=school)
                 new_student.save()

@@ -380,7 +380,7 @@ def get_all_teacher_classes(request, id):
 
 def receive_class_img(request):
     if request.method == 'POST':
-        json_data = json.loads(request.body)  # request.raw_post_data w/ Django < 1.4
+        json_data = json.loads(request.body.decode("utf-8"))  # request.raw_post_data w/ Django < 1.4
         try:
             data = json_data['data']
         except KeyError:

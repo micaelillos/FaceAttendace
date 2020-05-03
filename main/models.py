@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from random import randint
 import pickle
-
+import ast
 
 class School(models.Model):
     name = models.CharField(max_length=200)
@@ -121,6 +121,16 @@ class Class(models.Model):
             file.close()
 
         return embeddings, names
+
+
+class Reports(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField.auto_now_add()
+    class_ = models.ForeignKey(Class, default=0, on_delete=models.SET_DEFAULT)
+    dictionary = name = models.CharField(max_length=1000)
+
+    def get_student_dict(self):
+        return ast.literal_eval(str(self.dictionary))
 
 
 class TemporaryStudent(models.Model):

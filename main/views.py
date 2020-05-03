@@ -8,19 +8,13 @@ from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent
 import json
 from random import randint
-from django.utils.encoding import force_text
 from .face_recognition import save_embedding, face_recognition_init
 import os
+
 
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
-
-
-# Todo in add_student function add a pic slot
-# Todo add tables for origin classes and student
-# Todo add option to create new class- started need to add check box
-# Todo add option to add students to a class
 
 
 def error_404(request, exception):
@@ -43,6 +37,8 @@ def homepage(request):
         else:
             classes = get_dict_of_origin_classes(teacher.school)
             teachers = Teacher.objects.filter(school=teacher.school, is_admin=False).all()
+            teachers = sorted(teachers, key=lambda x: x.name)
+
             return render(request=request, template_name='main/admin_home.html',
                           context={'classes': classes, 'teachers': teachers})
     else:
@@ -367,9 +363,8 @@ def get_Student(request, student_name):
         return HttpResponse(response, content_type='text/json')
 
 
-# Todo change username to id
-def get_all_teacher_classes(request, username):
-    teacher = Teacher.objects.filter(username=username)[0]
+def get_all_teacher_classes(request, id):
+    teacher = Teacher.objects.filter(id=id)[0]
     if request.method == 'GET':
         try:
             classes = Class.objects.filter(teacher=teacher).all()

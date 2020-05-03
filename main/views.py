@@ -376,3 +376,14 @@ def get_all_teacher_classes(request, id):
     else:
         response = None
     return HttpResponse(response, content_type='text/json')
+
+
+def receive_class_img(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)  # request.raw_post_data w/ Django < 1.4
+        try:
+            data = json_data['data']
+        except KeyError:
+            HttpResponse("Problem")
+
+        HttpResponse("Got json data")

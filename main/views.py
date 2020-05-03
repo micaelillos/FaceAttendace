@@ -10,6 +10,7 @@ import json
 from random import randint
 from .face_recognition import save_embedding, face_recognition_init
 import os
+import base64
 
 
 # Create your views here.
@@ -378,12 +379,10 @@ def get_all_teacher_classes(request, id):
     return HttpResponse(response, content_type='text/json')
 
 
-def receive_class_img(request):
-    if request.method == 'POST':
-        json_data = json.loads(request.body.decode("utf-8"))  # request.raw_post_data w/ Django < 1.4
-        try:
-            data = json_data['data']
-        except KeyError:
-            HttpResponse("Problem")
-
-        HttpResponse("Got json data")
+def receive_class_img(request, img):
+    print(img)
+    img = img[23:]
+    response = json.dumps([{'Success': 'received img(i hope!)'}])
+    with open("imageToSave.jpg", "wb") as fh:
+        fh.write(base64.decodebytes(img))
+    return HttpResponse(response, content_type='text/json')

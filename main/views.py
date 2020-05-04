@@ -385,9 +385,8 @@ def receive_class_img(request):
     print('start')
     img = json.loads(request.body.decode("utf-8"))
     response = json.dumps([{'Success': 'received img(i hope!)'}])
-    '''''
+
     with open("imageToSave.jpg", "wb") as fh:
         fh.write(base64.decodebytes(img))
-    '''
-    print(img)
+
     return HttpResponse(response, content_type='text/json')

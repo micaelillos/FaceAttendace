@@ -396,7 +396,9 @@ def receive_class_img(request, class_id):
     for student in class_.get_student_list():
         name_list.append(student.name)
         link = student.embedding_link
-        embedding = pickle.load(link)
+        file = open(link, 'rb')
+        embedding = pickle.load(file)
+        file.close()
         embedding_list.append(embedding)
 
     present_list = find_known_faces(embedding_list, name_list, filename)

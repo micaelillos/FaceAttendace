@@ -128,7 +128,7 @@ def face_recognition_init(restart=False):
 
     if detector == '' or restart:
         detector = MTCNN()
-        classifier = cv2.CascadeClassifier('/home/projects/FaceAttendace/main/haarcascade_frontalface_default.xml')
+        classifier = cv2.CascadeClassifier('/Users/eitan/mysite/main/haarcascade_frontalface_default.xml')
         model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 
 

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
-from .models import School, Teacher, Student, Class, TemporaryStudent
+from .models import School, Teacher, Student, Class, TemporaryStudent, Report
 import json
 from random import randint
 from .face_recognition import save_embedding, face_recognition_init, find_known_faces
@@ -13,6 +13,7 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 import base64
 import pickle
+
 
 # Create your views here.
 # teacher: 97641981
@@ -329,6 +330,25 @@ def delete_class(request, class_id):
         return redirect('main:landing page')
 
 
+def view_reports(request, class_id):
+    if request.user.is_authenticated:
+        class_ = Class.objects.filter(id=class_id)[0]
+        reports = Report.objects.filter(belonging_class=class_)
+        reports = sorted(reports, key=lambda x: x.date)
+        student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}
+        for i, report in enumerate(reports):
+            if i != 0:
+                new_dict = report.get_student_dict()
+                for key, val in new_dict.items():
+                    student_dict[key].append(val)
+        print(student_dict)
+        return render(request, 'main/view_reports.html',
+                      context={'reports': reports, 'student_dict': student_dict, 'class_name': class_.name})
+
+    else:
+        return redirect('main:landing page')
+
+
 # help functions
 def get_dict_of_origin_classes(school):
     students = Student.objects.filter(school=school).all()
@@ -402,6 +422,9 @@ def receive_class_img(request, class_id):
         embedding_list.append(embedding)
 
     present_list = find_known_faces(embedding_list, name_list, filename)
+    report = Report(belonging_class=class_)
+    report.create_student_dict(name_list, present_list)
+    report.save()
     print(present_list)
-    response = json.dumps([{'List': present_list}])
+    response = json.dumps([{'List': report.get_student_dict()}])
     return HttpResponse(response, content_type='text/json')

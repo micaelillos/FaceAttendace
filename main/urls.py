@@ -47,7 +47,7 @@ urlpatterns = [
     path('delete_class_verification/<str:class_id>/', views.delete_class_verification,
          name='delete class verification'),
     path('delete_class/<str:class_id>/', views.delete_class, name='delete class'),
-
+    path('view_reports/<int:class_id>/', views.view_reports, name='view reports'),
     # Json response
     path('api/student/<str:student_name>', views.get_Student, name='get student'),
     path('api/teacher/<str:id>', views.get_all_teacher_classes, name='get all teacher classes'),

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    {% extends "main/header.html" %}
+
+</head>
+<body>
+{% block content %}
+<br>
+
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">{{class_name}} Reports:</h1>
+        </div>
+    </section>
+    <br/>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <tr>
+            <th>Name</th>
+            {% for report in reports %}
+            <th>{{report.date}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for name, l in student_dict.items %}
+        <tr>
+            <td>{{name}}</td>
+            {% for i in l %}
+                <td>{{i}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+    <a style="float:right;" class="tag is-info is-large is-light" href="{{path}}">Back</a>
+
+
+</div>
+{% endblock %}
+</body>
+</html>

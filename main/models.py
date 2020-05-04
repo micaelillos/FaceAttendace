@@ -129,14 +129,31 @@ class TemporaryStudent(models.Model):
     student_img = models.ImageField(upload_to='images/')
 
 
-class Reports(models.Model):
+class Report(models.Model):
     id = models.AutoField(primary_key=True)
-    # date = models.DateField.auto_now_add()
-    origin_class = models.ForeignKey(Class, default=0, on_delete=models.SET_DEFAULT)
+    date = models.DateField(auto_now_add=True)
+    belonging_class = models.ForeignKey(Class, default=0, on_delete=models.SET_DEFAULT)
     dictionary = models.CharField(max_length=1000)
 
     def get_student_dict(self):
         return ast.literal_eval(str(self.dictionary))
+
+    def create_student_dict(self, all_names, present_names):
+        d = {}
+        for student in all_names:
+            if student in present_names:
+                d[student] = True
+            else:
+                d[student] = False
+
+        self.dictionary = str(d)
+        self.save()
+
+    def change_student_dict(self, name, new_val):
+        d = self.get_student_dict()
+        d[name] = new_val
+        self.dictionary = str(d)
+        self.save()
 
     class Meta:
         verbose_name_plural = 'Reports'

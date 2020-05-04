@@ -380,6 +380,7 @@ def get_all_teacher_classes(request, id):
 
 
 def receive_class_img(request):
+    print('start')
     img = json.loads(request.body.decode("utf-8"))
     response = json.dumps([{'Success': 'received img(i hope!)'}])
     '''''

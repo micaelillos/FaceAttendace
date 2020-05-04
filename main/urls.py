@@ -49,9 +49,9 @@ urlpatterns = [
     path('delete_class/<str:class_id>/', views.delete_class, name='delete class'),
 
     # Json response
-    path('api/student/<str:student_name>/', views.get_Student, name='get student'),
-    path('api/teacher/<str:id>/', views.get_all_teacher_classes, name='get all teacher classes'),
-    path('api/class/img/', views.receive_class_img, name='receive class image'),
+    path('api/student/<str:student_name>', views.get_Student, name='get student'),
+    path('api/teacher/<str:id>', views.get_all_teacher_classes, name='get all teacher classes'),
+    path('api/class/img', views.receive_class_img, name='receive class image'),
 ]
 # handler 404
 handler404 = myapp_views.error_404

@@ -94,7 +94,7 @@ def is_face_in_class(face, class_embeddings,):
 
 
 def find_known_faces(class_embeddings, class_names, filename):
-    face_recognition_init()
+    face_recognition_init(restart=True)
     known = []
     faces = extract_faces_for_class(filename)
     if not faces:
@@ -121,12 +121,12 @@ def save_embedding(image_link, embedding_link):
 
 
 # required
-def face_recognition_init():
+def face_recognition_init(restart=False):
     global detector
     global classifier
     global model
 
-    if detector == '':
+    if detector == '' or restart:
         detector = MTCNN()
         classifier = cv2.CascadeClassifier('/home/projects/FaceAttendace/main/haarcascade_frontalface_default.xml')
         model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')

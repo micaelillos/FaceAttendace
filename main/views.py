@@ -10,6 +10,7 @@ import json
 from random import randint
 from .face_recognition import save_embedding, face_recognition_init
 import os
+from django.views.decorators.csrf import csrf_exempt
 import base64
 
 
@@ -379,6 +380,7 @@ def get_all_teacher_classes(request, id):
     return HttpResponse(response, content_type='text/json')
 
 
+@csrf_exempt
 def receive_class_img(request):
     print('start')
     img = json.loads(request.body.decode("utf-8"))

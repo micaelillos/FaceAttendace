@@ -94,6 +94,7 @@ def is_face_in_class(face, class_embeddings,):
 
 
 def find_known_faces(class_embeddings, class_names, filename):
+    face_recognition_init()
     known = []
     faces = extract_faces_for_class(filename)
     if not faces:

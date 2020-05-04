@@ -8,11 +8,11 @@ from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent
 import json
 from random import randint
-from .face_recognition import save_embedding, face_recognition_init
+from .face_recognition import save_embedding, face_recognition_init, find_known_faces
 import os
 from django.views.decorators.csrf import csrf_exempt
 import base64
-
+import pickle
 
 # Create your views here.
 # teacher: 97641981
@@ -381,12 +381,25 @@ def get_all_teacher_classes(request, id):
 
 
 @csrf_exempt
-def receive_class_img(request):
+def receive_class_img(request, class_id):
     print('start')
     img = bytes(json.loads(request.body.decode("utf-8")), encoding="utf-8")
     response = json.dumps([{'Success': 'received img(i hope!)'}])
-
-    with open("imageToSave.jpg", "wb") as fh:
+    # send without prefix
+    filename = "main/imageToSave.jpg"
+    with open(filename, "wb") as fh:
         fh.write(base64.decodebytes(img))
 
+    class_ = Class.objects.filter(id=class_id)[0]
+    name_list = []
+    embedding_list = []
+    for student in class_.get_student_list():
+        name_list.append(student.name)
+        link = student.embedding_link
+        embedding = pickle.load(link)
+        embedding_list.append(embedding)
+
+    present_list = find_known_faces(embedding_list, name_list, filename)
+    print(present_list)
+    response = json.dumps([{'List': present_list}])
     return HttpResponse(response, content_type='text/json')

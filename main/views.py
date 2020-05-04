@@ -383,7 +383,7 @@ def get_all_teacher_classes(request, id):
 @csrf_exempt
 def receive_class_img(request):
     print('start')
-    img = json.loads(request.body.decode("utf-8"))
+    img = bytes(json.loads(request.body.decode("utf-8")))
     response = json.dumps([{'Success': 'received img(i hope!)'}])
 
     with open("imageToSave.jpg", "wb") as fh:

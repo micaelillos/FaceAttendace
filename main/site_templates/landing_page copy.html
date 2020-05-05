@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Face Attendace</title>
+  <meta name="description" content="Create your central profile page on the internet for free">
+
+  <!-- Facebook Open Graph data -->
+  <meta property="og:title" content="One Profile Info | An Elegant Personal Page Builder" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.oneprofile.info" />
+  <meta property="og:image" content="https://oneprofile-assets.s3-us-west-1.amazonaws.com/assets-storage/home-banner.jpg" />
+  <meta property="og:description" content="Create your central profile page on the internet for free" />
+  <meta property="og:site_name" content="One Profile" />
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@OneProfile_HQ">
+  <meta name="twitter:title" content="One Profile Info | An Elegant Personal Page Builder">
+  <meta name="twitter:description" content="Create your central profile page on the internet for free">
+  <meta name="twitter:creator" content="@OneProfile_HQ">
+  <meta name="twitter:image:src" content="https://oneprofile-assets.s3-us-west-1.amazonaws.com/assets-storage/home-banner.jpg">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn2.oneprofile.info/assets/favicon/apple-touch-icon-dba33177c51c3a1d9ba05d858649f8be2e0fbf0bfecf7fbe8bb610bc526c5d6f.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn2.oneprofile.info/assets/favicon/favicon-32x32-b82bce5bc48d7c2bfbd74d26f0feb76249532cf3041e8dda67483110c965f003.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn2.oneprofile.info/assets/favicon/favicon-16x16-20e1b734177856cdde4523f4e4ea9473960b691227d44ca89de94d6fc3e3fc04.png">
+<link rel="mask-icon" href="https://cdn2.oneprofile.info/assets/favicon/safari-pinned-tab-c3a549639c96133bf70fff0b5077ff61afd2a38521c5ea2cf27468a6e92d74a6.svg" color="#5bbad5">
+<link rel="shortcut icon" href="https://cdn2.oneprofile.info/assets/favicon/favicon-634df5287f999c9d2ce7469fa865c3fd1b6423d2bfa5bf0ce620e9c97a93c2a9.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="https://cdn2.oneprofile.info/assets/favicon/browserconfig-73b86cbc071572a53325d9904bc8c2314ef8788299d9f4a924e01d74543e88bf.xml">
+<meta name="theme-color" content="#ffffff">
+
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="/uKwXTSIKyi7+XlytHFUaOpUZOrCCwhyrlanWcA37AD4TkNuuMYRuPI91UrnU47Rkr54Oa5lojFzXCm2YPuU/w==" />
+    
+    <script src="//d2wy8f7a9ursnm.cloudfront.net/v6/bugsnag.min.js"></script>
+      <script>window.bugsnagClient = bugsnag("bd3b8914b9f474ccd31ad5f886872fb0")</script>
+    <script src="https://kit.fontawesome.com/40a50ceba6.js" async="async" defer="defer"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" media="all" href="https://cdn2.oneprofile.info/assets/application-9c5ff0805d9dd69f53f9ad3809178eca8a809fefce402c4571b773af258add1c.css" />
+    <script src="https://cdn2.oneprofile.info/assets/application-bc69c9fece2989474068d492b2ca7bc44221e3d3b1c482303b2c414429244443.js"></script>
+  </head>
+
+  <body class="has-navbar-fixed-top">
+    
+<nav class="navbar is-transparent is-hidden-touch is-fixed-top is-spaced">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/" data-balloon="We're One Profile 🤭" data-balloon-pos="right">
+      <img style="max-height: 2.15rem" src="https://cdn2.oneprofile.info/assets/oneprofile-logo-round-b18cbba2809eeb58fc5e783b3fa35dd789df3a007360d8762242df50a8b4ff85.svg" />
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-end">
+
+
+          <a class="navbar-item" href="#why">
+            <span>Why?</span>
+          </a>
+
+          <a class="navbar-item" href="#features">
+            <span>Features</span>
+          </a>
+
+          <a class="navbar-item" href="#testimonial">
+            <span>Testimonials</span>
+          </a>
+
+          <a class="navbar-item" href="#demo">
+            <span>Demo</span>
+          </a>
+
+          <a class="navbar-item" href="/pricing">
+            <span>Pricing</span>
+          </a>
+
+          <a class="navbar-item" href="/login">
+            <span>Login</span>
+          </a>
+
+          <div class="navbar-item" style="margin: 0 -0.7rem">
+            <span class="has-text-grey-light">|</span>
+          </div>
+
+          <div class="navbar-item">
+            <a href="/signup" class="button button-special box-shadow-lift is-rounded">
+              <span class="icon has-text-discord">
+                <i class="fad fa-magic"></i>
+              </span>
+              <span> Create your free page</span>
+            </a>
+          </div>
+
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar is-spaced is-hidden-desktop is-fixed-top">
+  <div class="navbar-brand">
+    <div class="navbar-item">
+      <a class="navbar-item" href="/" data-balloon="Home page 🤭" data-balloon-pos="right">
+        <img src="https://cdn2.oneprofile.info/assets/oneprofile-logo-round-b18cbba2809eeb58fc5e783b3fa35dd789df3a007360d8762242df50a8b4ff85.svg" />
+      </a>
+    </div>
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+<div class="navbar-menu" id="navMenu">
+    <div class="navbar-item">
+      <a class="navbar-item" href="/pricing">
+          <span class="icon">
+            <i class="fal fa-tag"></i>
+          </span>
+          <span>Pricing</span>
+        </a>
+      <hr>
+      <a class="navbar-item" href="https://yusuf.oneprofile.info">
+          <span class="icon">
+            <i class="fal fa-star"></i>
+          </span>
+          <span>Demo</span>
+        </a>
+      <hr>
+      <a class="navbar-item" href="/login">
+        <span class="icon">
+          <i class="fal fa-sign-in-alt"></i>
+        </span>
+        <span>Log in</span>
+      </a>
+      <hr>
+      <a class="navbar-item" href="/signup">
+        <span class="icon">
+          <i class="fal fa-kiss-wink-heart"></i>
+        </span>
+        <span>Sign Up</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  $(document).ready(function() {
+
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+</script>
+
+
+
+<section class="section">
+  <div class="container">
+
+    <div class="column has-text-centered">
+      <a href="" target="_blank" rel="noopener" ><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=185445&theme=dark&period=daily" alt="One Profile - Create your modern personal page for free | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+    </div>
+
+    <div class="column has-text-centered is-hidden-touch">
+      <p class="title"><span style="font-size: 5.1rem">Welcome to Attendy.</span></p>
+      <p class="subtitle is-3 has-text-grey">This is a project made by Micael & Eitan</p>
+      <div class="column">
+        <div class="column" style="margin-left: 1rem">
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/710/thumb/0.jpg?1582500574" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1342/thumb/Soham.jpg?1582699922" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1877/thumb/Ankit_Malik_Profile_Picture.jpg?1583308680" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1254/thumb/mikestaub-medium.jpg?1582652998" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1949/thumb/CV_picture_color_squared.jpg?1583387769" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/54/thumb/Image_17.jpeg?1567541451" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/2287/thumb/Constance.A.png?1585053837" />
+              </figure>
+        </div>
+        <p class="menu-label">Join over <span class="has-text-link is-size-4">2461</span> people who are already using a Face Attendace demo</p>
+      </div>
+      <div class="column">
+        <a href="/signup" class="button button-special box-shadow-lift is-large is-rounded">
+          <span>Access your free demo page now</span>
+          <span class="icon has-text-primary">
+            <i class="fad fa-arrow-alt-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="column has-text-centered is-hidden-desktop">
+      <p class="title is-1">It's 2020 <br> you need Attendy</p>
+      <p class="subtitle has-text-grey is-4">An open source project made by Micael and Eitan</p>
+      <div class="column">
+        <div class="column" style="margin-left: 1rem">
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/777/thumb/download.png?1582514631" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/2044/thumb/FB_IMG_1552821776500.jpg?1583842054" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/2405/thumb/B3B81ACD-42A9-4D89-AD82-081EB9FD4D37.jpeg?1585716139" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1910/thumb/profile_RosarioCosta.jpg?1583332289" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1641/thumb/Profile.jpg?1583224062" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/1156/thumb/WhatsApp_Image_2020-02-17_at_22.26.36.jpeg?1582620951" />
+              </figure>
+              <figure class="image is-48x48 is-inline-flex" style="margin-left: -1rem;">
+                 <img class="is-rounded avatar-home" alt="user-profile-photo" src="https://cdn1.oneprofile.info/users/avatars/302/thumb/pic1.jpg?1580067631" />
+              </figure>
+        </div>
+        <p class="menu-label">Join over <span class="has-text-link">2461</span> people who have already created a One Profile</p>
+      </div>
+      <div class="column">
+        <a href="/signup" class="button button-special box-shadow-lift is-large is-rounded">
+          <span>Try us now for free</span>
+          <span class="icon has-text-primary">
+            <i class="fad fa-arrow-alt-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+
+</div>
+</section>
+
+<section class="hero space is-hidden-touch is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-4 is-offset-7 skew-oppose" style="position: absolute; z-index: 1;" id="why">
+        <div class="box box-shadow-lift">
+          <p class="title">Why use Face Attendace?</p>
+          <hr>
+          <div id="reason-1">
+            <p class="menu-label">Demo  Pic</p>
+            <hr class="primary">
+            <p class="subtitle">Attendy is a way of automating the school Attendace process.<span class="underline-green"> Advanced Facial Recognition</span> and ability to connect to the <span class="underline-green">Mashov</span> making Attendy super effecient.</p>
+          </div>
+          <div id="reason-2">
+            <p class="menu-label">Showcase Your Works</p>
+            <hr class="primary">
+            <p class="subtitle">Display your projects and achievements in one page. <span class="underline-green">Add action buttons</span> to redirect visitors to your e-book on Amazon or CV on Dropbox. <span class="underline-green">Sell products or services</span> on your page and transact via Gumroad or Stripe. You're an influencer? Do an advert or add a Calendly link to schedule paid sessions.</p>
+          </div>
+          <div id="reason-3">
+            <p class="menu-label">Total Focus On You</p>
+            <hr class="primary">
+            <p class="subtitle">Your personal page on One Profile is completely <span class="underline-green">free from distractions</span> like ad banners, suggested contents, comments, followers, followings, likes, and shares. The <span class="underline-green">focus is on you</span> and your content.</p>
+          </div>
+          <hr>
+          <div class="buttons is-right">
+            <a id="back-button-1" class="button is-rounded">
+              &larr;
+            </a>
+            <a id="back-button-2" class="button is-rounded">
+              &larr;
+            </a>
+            <a id="button-2" class="button is-rounded">
+              Next &rarr;
+            </a>
+            <a id="button-3" class="button is-rounded">
+              Next &rarr;
+            </a>
+            <a href="#sets-apart" id="button-4" class="button is-rounded">
+              What sets One Profile apart?
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-5 is-offset-3 skew-oppose">
+        <br><br><br>
+        <figure class="image" id="pic-1">
+          <img style="border-radius: 6px" src="https://cdn2.oneprofile.info/assets/photo-of-woman-covering-her-face-d206938ea11884ed63993cfce04c8862cb048392e3a9b1c48e0abeaca5270555.jpg" />
+        </figure>
+        <figure class="image" id="pic-2">
+          <img style="border-radius: 6px" src="https://cdn2.oneprofile.info/assets/eyes-face-head-portrait-2be6e3ed057d72bfab1d67cccd0a17484ffbf659be5e40046b410811c81dd82d.jpg" />
+        </figure>
+        <figure class="image" id="pic-3">
+          <img style="border-radius: 6px" src="https://cdn2.oneprofile.info/assets/man-in-gray-crew-neck-90ba708cf8717cb322f6a9d3b83042ec5ed4a329ef7fcc4d577b39d751559d29.jpg" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-hidden-desktop space">
+  <div class="container">
+    <div class="column is-6 is-offset-3 skew-oppose">
+      <div class="box box-shadow-lift">
+        <p class="title is-hidden-touch">Why a Personal Page?</p>
+        <p class="title is-4 is-hidden-desktop">Why a Personal Page?</p>
+        <hr>
+        <div id="reason-1-mobile">
+          <p class="menu-label">Centralized Online Presence</p>
+          <hr class="primary">
+          <p class="subtitle">Bring all of your social links together in one place. Instead of sharing 10 links, share <span class="underline-green">1 ultimate link</span> and utilize your <span class="underline-green">built-in QR code</span> by having it on your business card, your mobile phone, in a video...anywhere.</p>
+        </div>
+        <div id="reason-2-mobile">
+          <p class="menu-label">Showcase Your Works</p>
+          <hr class="primary">
+          <p class="subtitle">Display your projects and achievements on one page. <span class="underline-green">Add action buttons</span> to redirect visitors to your e-book on Amazon or CV on Dropbox. <span class="underline-green">Sell products or services on your page</span> and transact via Gumroad or Stripe. You're an influencer? Do an advert or add a Calendly link to schedule paid sessions.</p>
+        </div>
+        <div id="reason-3-mobile">
+          <p class="menu-label">Total Focus On You</p>
+          <hr class="primary">
+          <p class="subtitle">Your personal page on One Profile is completely <span class="underline-green">free from distractions</span> like ad banners, suggested contents, comments, followers, followings, likes, and shares. The <span class="underline-green">focus is on you</span> and your content.</p>
+        </div>
+        <hr>
+        <div class="buttons is-right">
+          <a id="back-button-1-mobile" class="button is-rounded">
+            &larr;
+          </a>
+          <a id="back-button-2-mobile" class="button is-rounded">
+            &larr;
+          </a>
+          <a id="button-2-mobile" class="button is-rounded">
+            Next &rarr;
+          </a>
+          <a id="button-3-mobile" class="button is-rounded">
+            Next &rarr;
+          </a>
+          <a href="#sets-apart" id="button-4" class="button is-rounded">
+            What sets One Profile apart?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sets-apart">
+  <br>
+  <div class="container" id="features">
+    <div class="column has-text-centered">
+    <p class="title is-2">What <span class="underline-green">sets us apart</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column margin-center">
+        <div class="columns">
+          <div class="column is-2 margin-center has-text-centered is-hidden-touch">
+            <span class="icon has-text-primary">
+              <i class="fad fa-3x fa-shapes"></i>
+            </span>
+          </div>
+          <div class="column is-2 is-hidden-desktop">
+            &nbsp;&nbsp;
+            <span class="icon has-text-primary">
+              <i class="fad fa-3x fa-shapes"></i>
+            </span>
+          </div>
+          <div class="column">
+            <p class="title is-2">Sortable Custom Boxes</p>
+            <p class="subtitle is-4 has-text-grey">With Custom Boxes, you can create customized action buttons, write long text, post pictures, embed YouTube videos, Instagram Galleries, and Twitter Timelines, show testimonials, display Google Maps, sell products via Gumroad and Stripe, and collect emails for newsletters—all in one page.</p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box box-shadow-lift">
+          <video class="" autoplay="autoplay" loop="loop" muted="muted" allowfullscreen="allowfullscreen" src="https://cdn2.oneprofile.info/assets/custom-boxes-868cde69096d6bab415603d88d11612e8f7cb7ed5ea86d94423d6478233fb9e1.mp4"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="columns">
+    <div class="column margin-center">
+      <div class="columns">
+        <div class="column is-2 margin-center has-text-centered is-hidden-touch">
+          <span class="icon has-text-discord">
+            <i class="fad fa-3x fa-qrcode"></i>
+          </span>
+        </div>
+        <div class="column is-2 is-hidden-desktop">
+          &nbsp;&nbsp;
+          <span class="icon has-text-discord">
+            <i class="fad fa-3x fa-qrcode"></i>
+          </span>
+        </div>
+        <div class="column">
+          <p class="title is-2">Personal QR Code</p>
+          <p class="subtitle is-4 has-text-grey">Your page has a built-in QR code which makes it easy for sharing with people, especially when you're on-the-go. Perfect to have it on your business card or saved on your mobile phone.</p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box box-shadow-lift">
+        <figure class="image">
+          <img src="https://cdn2.oneprofile.info/assets/qr-code-cbfc78e781edb6caaeb76d70797b41c073e34018f3405c63b74e9ef7a489365d.jpg" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="columns">
+    <div class="column margin-center">
+      <div class="columns">
+        <div class="column is-2 margin-center has-text-centered is-hidden-touch">
+          <span class="icon has-text-info">
+            <i class="fad fa-3x fa-envelope"></i>
+          </span>
+        </div>
+        <div class="column is-2 is-hidden-desktop">
+          &nbsp;&nbsp;
+          <span class="icon has-text-info">
+            <i class="fad fa-3x fa-envelope"></i>
+          </span>
+        </div>
+        <div class="column">
+          <p class="title is-2">Built-in Contact Form </p>
+          <p class="subtitle is-4 has-text-grey">Collect inquiries from your visitors without revealing your email address and get their messages sent directly to your email inbox at no extra cost. There's also a hidden recaptcha to protect your form from abuse by bots.</p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box box-shadow-lift">
+        <video class="" autoplay="autoplay" loop="loop" muted="muted" allowfullscreen="allowfullscreen" src="https://cdn2.oneprofile.info/assets/contact-form-db8a220920c4eb78d0ede1b1ee75d28c293026b24ab5c10a28caa5a8c65742ca.mp4"></video>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="columns">
+    <div class="column margin-center">
+      <div class="columns">
+        <div class="column is-2 margin-center has-text-centered is-hidden-touch">
+          <span class="icon has-text-patreon">
+            <i class="fad fa-3x fa-comment-alt-smile"></i>
+          </span>
+        </div>
+        <div class="column is-2 is-hidden-desktop">
+          &nbsp;&nbsp;
+          <span class="icon has-text-patreon">
+            <i class="fad fa-3x fa-comment-alt-smile"></i>
+          </span>
+        </div>
+        <div class="column">
+          <p class="title is-2">Chat Widget </p>
+          <p class="subtitle is-4 has-text-grey">Engage with your fans, clients, or visitors directly with a free and powerful chat widget by Chatra, Crisp or Drift. All are available on web, iOS and Android.</p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box box-shadow-lift">
+        <video class="" autoplay="autoplay" loop="loop" muted="muted" allowfullscreen="allowfullscreen" src="https://cdn2.oneprofile.info/assets/chat-widget-697a3ca28b15428ef32dc1b5c05f3ce30c0a94478c17dc5da4787a7bf07fab93.mp4"></video>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section is-medium">
+  <div class="container" id="testimonial">
+    <div class="column">
+      <h3 class="title is-2 has-text-centered">"Easy To Use & Great Design"</h3>
+      <p class="subtitle is-4 has-text-centered">Some nice words about us 😳</p>
+    </div>
+    <br>
+    <div class="columns is-centered">
+      <div class="column is-4">
+        <div class="box box-shadow-lift">
+          <div class="card-content">
+            <i class="fal fa-quote-left"></i>
+            <figure class="image is-96x96 margin-middle">
+              <img class="profile-circle is-rounded" style="height: 96px; width: 96px" alt="testimonial-picture" src="https://cdn2.oneprofile.page/assets/producthunt-logo-ed8f42395007385a7853ce60e46f2fb2a676c1c8b8940ca3657d2283f375fbe5.jpg" />
+            </figure>
+            <div class="media" style="border-top: none">
+              <div class="media-content has-text-centered" style="margin: 0.9rem 0">
+                <p class="title is-4">Product Hunt</p>
+                <p class="subtitle has-text-grey is-6">Reviews on our launch page</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>By far the best design and most features I've seen on a landing page. Definitely one of the best profile builders - and with that price tag, it's just awesome. I like the simplicity and the ease-of-use.</p>
+            </div>
+            <hr>
+            <a href="https://www.producthunt.com/posts/one-profile" class="button is-fullwidth" target="_blank" rel="noopener noreferrer">View Source</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box box-shadow-lift">
+          <div class="card-content">
+            <i class="fal fa-quote-left"></i>
+            <figure class="image is-96x96 margin-middle">
+              <img class="profile-circle is-rounded" style="height: 96px; width: 96px" alt="testimonial-picture" src="https://cdn2.oneprofile.info/assets/pablo-stanley-2529ca292be5988110b555fc30244a79041feb1eb1daf4a88823ef5e18688db4.jpg" />
+            </figure>
+            <div class="media" style="border-top: none">
+              <div class="media-content has-text-centered" style="margin: 0.9rem 0">
+                <p class="title is-4">Pablo Stanley</p>
+                <p class="subtitle has-text-grey is-6">Designer at InVision</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>I loved how the onboarding gives you “good enough” defaults to get you quickly started! And I also liked all the different integrations you can add—including Calendly.</p>
+            </div>
+            <hr>
+            <a href="https://twitter.com/pablostanley/status/1234696915742121984?ref_src=twsrc%5Etfw" class="button is-fullwidth" target="_blank" rel="noopener noreferrer">View Source</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box box-shadow-lift">
+          <div class="card-content">
+            <i class="fal fa-quote-left"></i>
+            <figure class="image is-96x96 margin-middle">
+              <img class="profile-circle is-rounded" style="height: 96px; width: 96px" alt="testimonial-picture" src="https://cdn1.oneprofile.page/custom_boxes/testimonial_images/28/large/reddit.jpeg?1580394721" />
+            </figure>
+            <div class="media" style="border-top: none">
+              <div class="media-content has-text-centered" style="margin: 0.9rem 0">
+                <p class="title is-4">Reddit</p>
+                <p class="subtitle has-text-grey is-6">Redditor at /r/SideProject</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>Firstly, good job - I like it! I actually spent a bit of time setting up a carrd.co website to do essentially what you've made. Only you've made it easier still by the question-answer builder. Nice!</p>
+            </div>
+            <hr>
+            <a href="https://www.reddit.com/r/SideProject/comments/ekqpfx/i_built_a_webpage_builder_where_you_can_create_a/ff5o0gc?utm_source=share&utm_medium=web2x" class="button is-fullwidth" target="_blank" rel="noopener noreferrer">View Source</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<br>
+<div class="container" id="demo">
+  <div class="column has-text-centered">
+    <p class="title is-2">See it in action</p>
+    <p class="subtitle is-4">View a demo page</p>
+  </div>
+  <br>
+  <div class="columns is-centered is-multiline">
+    <div class="column is-4">
+      <div class="box box-shadow-lift">
+        <div class="card-content has-text-centered">
+          <figure class="image is-96x96 margin-middle">
+            <img class="is-rounded" src="https://cdn1.oneprofile.info/users/avatars/1/large/yusuf.jpg?1583647314" />
+          </figure>
+          <div class="media" style="border-top: none">
+            <div class="media-content has-text-centered" style="margin: 0.9rem 0">
+              <p class="title is-4">Yusuf</p>
+              <p class="subtitle is-5">Founder of One Profile</p>
+            </div>
+          </div>
+          <hr>
+          <div class="content">
+            <div class="buttons is-centered">
+              <a href="https://yusuf.oneprofile.info" class="button is-fullwidth" target="_blank" rel="noopener" >
+                <span>View this Page</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+  <section class="section">
+    <div class="container">
+      <div class="column is-8 is-offset-2 has-text-centered">
+        <hr style="height: 5px; background-color: #1c1c1c">
+        <br>
+        <p class="title is-2">Create your free page now</p>
+        <p class="subtitle is-4 has-text-grey">we have a feeling you'll love it ❤️</p>
+        <a href="/signup" class="button button-special box-shadow-lift is-medium is-rounded">
+          <span>Get Started</span>
+          <span class="icon has-text-link">
+            <i class="fad fa-arrow-alt-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<script>
+$(function() {
+  $('a[href*=\\#]:not([href=\\#])').on('click', function() {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.substr(1) +']');
+      if (target.length) {
+          $('html,body').animate({
+              scrollTop: target.offset().top + (-80)
+          }, 1000);
+          return false;
+      }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#reason-2, #reason-2-mobile").hide();
+  $("#reason-3, #reason-3-mobile").hide();
+  $("#button-3, #button-3-mobile").hide();
+  $("#button-4, #button-4-mobile").hide();
+  $("#pic-2, #pic-3").hide(700);
+  $("#back-button-1, #back-button-1-mobile").hide();
+  $("#back-button-2, #back-button-2-mobile").hide();
+
+  $("#button-2, #button-2-mobile").click(function(){
+    $("#reason-2, #reason-2-mobile").show();
+    $("#back-button-1, #back-button-1-mobile").show();
+    $("#button-3, #button-3-mobile").show();
+    $("#reason-1, #reason-1-mobile").hide();
+    $("#reason-3, #reason-3-mobile").hide();
+    $("#button-2, #button-2-mobile").hide();
+    $("#button-4, #button-4-mobile").hide();
+    $("#pic-2").show(700);
+    $("#pic-1, #pic-3").hide(700);
+    $("#back-button-2, #back-button-2-mobile").hide();
+  });
+
+  $("#button-3, #button-3-mobile").click(function(){
+    $("#reason-3, #reason-3-mobile").show();
+    $("#back-button-2, #back-button-2-mobile").show();
+    $("#button-3, #button-3-mobile").hide();
+    $("#reason-1, #reason-1-mobile").hide();
+    $("#reason-2, #reason-2-mobile").hide();
+    $("#button-2, #button-2-mobile").hide();
+    $("#pic-1, #pic-2").hide(700);
+    $("#pic-3").show(700);
+    $("#button-4, #button-4-mobile").show();
+    $("#back-button-1, #back-button-1-mobile").hide();
+  });
+
+  $("#back-button-1, #back-button-1-mobile").click(function(){
+    $("#reason-1, #reason-1-mobile").show();
+    $("#back-button-2, #back-button-2-mobile").hide();
+    $("#button-3, #button-3-mobile").hide();
+    $("#reason-2, #reason-2-mobile").hide();
+    $("#reason-3, #reason-3-mobile").hide();
+    $("#button-2, #button-2-mobile").show();
+    $("#button-4, #button-4-mobile").hide();
+    $("#pic-2, #pic-3").hide(700);
+    $("#pic-1").show(700);
+    $("#back-button-1, #back-button-1-mobile").hide();
+  });
+
+  $("#back-button-2, #back-button-2-mobile").click(function(){
+    $("#reason-2, #reason-2-mobile").show();
+    $("#back-button-2, #back-button-2-mobile").hide();
+    $("#button-3, #button-3-mobile").show();
+    $("#reason-1, #reason-1-mobile").hide();
+    $("#reason-3, #reason-3-mobile").hide();
+    $("#button-2, #button-2-mobile").hide();
+    $("#button-4, #button-4-mobile").hide();
+    $("#pic-1, #pic-3").hide(700);
+    $("#pic-2").show(700);
+    $("#back-button-1, #back-button-1-mobile").show();
+  });
+});
+</script>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    
+    <footer class="footer">
+  <div class="column has-text-centered">
+    <a href="https://www.producthunt.com/posts/one-profile?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-one-profile" target="_blank" rel="noopener" ><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=185445&theme=dark&period=daily" alt="One Profile - Create your modern personal page for free | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+  </div>
+  <p class="has-text-centered is-size-4 has-text-grey-light">• • •</p>
+    <div class="column">
+      <div class="buttons is-centered">
+        <a href="https://docs.oneprofile.info/terms-and-privacy/cookies-policy" target="_blank" rel="noopener"  class="is-hidden-touch button button-special is-rounded box-shadow-lift" data-balloon="Our Cookies Policy 🤷‍♀️" data-balloon-pos="up">
+          <span class="icon has-text-patreon">
+            <i class="fad fa-cookie-bite"></i>
+          </span>
+        </a>
+        <a href="https://giftworks.io" target="_blank" rel="noopener"  class="button button-special is-rounded box-shadow-lift" data-balloon="Read our blog 🤓" data-balloon-pos="up">
+          <span class="icon" style="color: #80D2DE">
+            <i class="fad fa-book"></i>
+          </span>
+        </a>
+        <a href="https://yusuf.oneprofile.info" target="_blank" rel="noopener"  class="is-hidden-touch button button-special is-rounded box-shadow-lift" data-balloon="I created One Profile. Enjoy! 🎉" data-balloon-pos="up">
+          <span class="icon" style="color: #EBB424">
+            <i class="fad fa-smile"></i>
+          </span>
+        </a>
+        <a href="https://twitter.com/OneProfile_HQ" target="_blank" rel="noopener"  class="button button-special is-rounded box-shadow-lift" data-balloon="Follow us on Twitter ❤️" data-balloon-pos="up">
+          <span class="icon has-text-twitter" style="opacity: 0.5">
+            <i class="fab fa-twitter"></i>
+          </span>
+        </a>
+        <a href="https://docs.oneprofile.info/terms-and-privacy/privacy-policy" target="_blank" rel="noopener"  class="button button-special is-rounded box-shadow-lift" data-balloon="Our Terms & Privacy Policies 🤷‍♂️" data-balloon-pos="up">
+          <span class="icon has-text-primary">
+            <i class="fad fa-file-user"></i>
+          </span>
+        </a>
+        <a href="/pricing" class="button button-special is-rounded box-shadow-lift" data-balloon="View our pricing plans 🤑" data-balloon-pos="up">
+          <span class="icon has-text-danger">
+            <i class="fad fa-tag"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="column has-text-centered">
+      <p class="menu-label">A Project by <a href="https://giftworks.io" target="_blank" rel="noopener" >Giftworks</a> <br>&copy;2020</p>
+    </div>
+</footer>
+
+      <script async defer src="https://sa.oneprofile.info/app.js"></script>
+<noscript><img src="https://sa.oneprofile.info/image.gif" alt=""></noscript>
+
+  </body>
+</html>
+

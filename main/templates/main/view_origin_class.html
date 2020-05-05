@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Origin Class</title>
+    {% extends "main/header.html" %}
+
+</head>
+<body>
+{% block content %}
+<br>
+
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">{{origin_class}}</h1>
+
+        </div>
+    </section>
+    <br/>
+<h1>Student List:</h1>
+
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <tr>
+            <th>Name</th>
+            <th> Id</th>
+        </tr>
+
+        {% for student in student_list %}
+        <tr>
+            <td> {{student.name}}</td>
+            <td>{{student.id}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+<a class="tag is-primary is-large is-light"href="/add_student/{{origin_class}}">Add a student</a>
+
+<a style="float:right;" class="tag is-info is-large is-light" href="/admin_home">Back</a>
+
+
+{% endblock %}
+</body>
+</html>

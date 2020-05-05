@@ -50,6 +50,7 @@ urlpatterns = [
     path('view_reports/<int:class_id>/', views.view_reports, name='view reports'),
     # Json response
     path('api/student/<str:student_name>', views.get_Student, name='get student'),
+    path('api/register', views.apiregister, name='register'),
     path('api/teacher/<str:id>', views.get_all_teacher_classes, name='get all teacher classes'),
     path('api/class/img/<str:class_id>', views.receive_class_img, name='receive class image'),
 ]

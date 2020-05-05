@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from rest_framework.decorators import api_view
+
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent, Report
 import json
@@ -13,6 +15,7 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 import base64
 import pickle
+
 
 
 # Create your views here.
@@ -46,7 +49,9 @@ def homepage(request):
                           context={'classes': classes, 'teachers': teachers})
     else:
         return redirect('main:landing page')
-
+@api_view(['POST',])
+def apiregister(request):
+    return
 
 def register(request):
     if request.method == 'POST':
@@ -63,6 +68,7 @@ def register(request):
             last_name = form.cleaned_data.get('last_name')
             username = form.cleaned_data.get('username')
             name = first_name + ' ' + last_name
+
             school_code = form.cleaned_data.get('school_code')
             if len(School.objects.filter(teacher_code=school_code).all()) > 0:
                 school = School.objects.filter(teacher_code=school_code).all()[0]

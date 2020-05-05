@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher</title>
+    {% extends "main/header.html" %}
+</head>
+<body>
+{% block content %}
+<br>
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">{{teacher.name}}</h1>
+        </div>
+    </section>
+    <br>
+    <h2 class="subtitle">List of classes:</h2>
+    <div class="list is-hoverable">
+        {% for class in classes %}
+
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
+
+
+        {% endfor %}
+
+    </div>
+
+    <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+</div>
+{% endblock %}
+</body>
+</html>

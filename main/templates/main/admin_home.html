@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+    {% extends "main/header.html" %}
+</head>
+<body>
+{% block content %}
+<br>
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">Welcome {{request.user.username}}</h1>
+        </div>
+    </section>
+
+    <br>
+    <h1 class="title">Origin Classes:</h1>
+    <div class="list is-hoverable">
+        {% for origin_class,students in classes.items %}
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
+
+        {% endfor %}
+
+    </div>
+
+    <a class="tag is-primary is-large is-light" href="/new_origin_class">Add origin class</a>
+
+    <br><br>
+
+    <h1 class="title">List of Teachers:</h1>
+     <div class="list is-hoverable">
+    {% for teacher in teachers %}
+    <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
+    {% endfor %}
+     </div>
+</div>
+<br><br><br>
+{% endblock %}
+</body>
+</html>

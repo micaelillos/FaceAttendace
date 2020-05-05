@@ -36,13 +36,13 @@ def homepage(request):
 
         if not teacher.is_admin:  # in case its not a school admin
             classes = Class.objects.filter(teacher=teacher).all()
-            return render(request=request, template_name='main/home.html', context={'classes': classes})
+            return render(request=request, template_name='teacher/home.html', context={'classes': classes})
         else:
             classes = get_dict_of_origin_classes(teacher.school)
             teachers = Teacher.objects.filter(school=teacher.school, is_admin=False).all()
             teachers = sorted(teachers, key=lambda x: x.name)
 
-            return render(request=request, template_name='main/admin_home.html',
+            return render(request=request, template_name='school_admin/admin_home.html',
                           context={'classes': classes, 'teachers': teachers})
     else:
         return redirect('main:landing page')
@@ -118,7 +118,7 @@ def view_school(request):
         teacher = Teacher.objects.filter(username=request.user.username)[0]
         school = teacher.school
         classes = get_dict_of_origin_classes(school)
-        return render(request, 'main/view_school.html', {'classes': classes})
+        return render(request, 'school_admin/view_school.html', {'classes': classes})
 
     else:
         return redirect('main:landing page')
@@ -128,7 +128,7 @@ def view_teacher(request, teacher_id):
     if request.user.is_authenticated:
         teacher = Teacher.objects.filter(id=teacher_id)[0]
         classes = Class.objects.filter(teacher=teacher).all()
-        return render(request=request, template_name='main/view_teacher.html',
+        return render(request=request, template_name='school_admin/view_teacher.html',
                       context={'classes': classes, 'teacher': teacher})
     else:
         return redirect('main:landing page')
@@ -149,7 +149,7 @@ def view_class(request, class_id):
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
         student_list.sort(key=lambda x: x.origin_class, reverse=True)
-        return render(request=request, template_name='main/view_class.html',
+        return render(request=request, template_name='teacher/view_class.html',
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
                                'class_name': class_.name})
     else:
@@ -163,7 +163,7 @@ def view_origin_class(request, origin_class):
         school = teacher.school
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
         student_list = sorted(student_list, key=lambda x: x.name)
-        return render(request, 'main/view_origin_class.html', {'student_list': student_list,
+        return render(request, 'school_admin/view_origin_class.html', {'student_list': student_list,
                                                                'origin_class': origin_class})
     else:
         return redirect('main:landing page')
@@ -175,7 +175,7 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
         teacher = Teacher.objects.filter(id=teacher_id)[0]
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
-        return render(request=request, template_name='main/view_class.html',
+        return render(request=request, template_name='teacher/view_class.html',
                       context={'student_list': student_list, 'class_name': class_.name,
                                'path': '/view_teacher/' + str(teacher_id), 'class_id': class_.id})
     else:
@@ -208,10 +208,10 @@ def add_student_to_origin(request, origin_class):
                 return redirect('main:view origin class', origin_class=origin_class)
             else:
                 # add not valid form error
-                return render(request, 'main/add_student.html', {'form': form})
+                return render(request, 'teacher/add_student.html', {'form': form})
         else:
             form = NewStudentForm()
-            return render(request, 'main/add_student.html', {'form': form})
+            return render(request, 'teacher/add_student.html', {'form': form})
     else:
         return redirect('main:landing page')
 
@@ -229,7 +229,7 @@ def create_new_class(request):
                 return redirect('main:view school for new class', new_class.id)
         else:
             form = newClassForm
-            return render(request, 'main/create_new_class.html', {'form': form})
+            return render(request, 'teacher/create_new_class.html', {'form': form})
     else:
         return redirect('main:landing page')
 
@@ -243,7 +243,7 @@ def view_school_for_new_class(request, class_id):
         button = '0'  # for add
         if 'create_new_class' in url:
             button = '1'  # for Create
-        return render(request=request, template_name='main/view_school_for_new_class.html',
+        return render(request=request, template_name='teacher/view_school_for_new_class.html',
                       context={'classes': classes, 'class_id': class_id, 'button': button})
     else:
         return redirect('main:landing page')
@@ -258,7 +258,7 @@ def select_students_from_origin(request, button, origin_class, class_id):
 
         print(request.method)
         if request.method == 'GET':
-            return render(request, 'main/select_students_from_origin.html',
+            return render(request, 'teacher/select_students_from_origin.html',
                           {'student_list': student_list, 'origin_class': origin_class, 'class_id': class_id,
                            'button': button})
         else:
@@ -291,7 +291,7 @@ def new_origin_class(request):
                 return redirect('main:admin homepage')
         else:
             form = newClassForm
-            return render(request, 'main/create_new_class.html', {'form': form})
+            return render(request, 'teacher/create_new_class.html', {'form': form})
     else:
         return redirect('main:landing page')
 
@@ -306,7 +306,7 @@ def delete_class_verification(request, class_id):
             raise Exception('Not allowed to delete this class')
             # will raise error if user tries to delete someone else class
 
-        return render(request=request, template_name='main/delete_class_verification.html',
+        return render(request=request, template_name='teacher/delete_class_verification.html',
                       context={'path': '/', 'class_id': class_id, 'class_name': class_.name})
     else:
         return redirect('main:landing page')
@@ -342,7 +342,7 @@ def view_reports(request, class_id):
                 for key, val in new_dict.items():
                     student_dict[key].append(val)
         print(student_dict)
-        return render(request, 'main/view_reports.html',
+        return render(request, 'teacher/view_reports.html',
                       context={'reports': reports, 'student_dict': student_dict, 'class_name': class_.name})
 
     else:

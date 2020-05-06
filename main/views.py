@@ -17,7 +17,6 @@ import base64
 import pickle
 
 
-
 # Create your views here.
 # teacher: 97641981
 # admin: 467713068
@@ -49,9 +48,12 @@ def homepage(request):
                           context={'classes': classes, 'teachers': teachers})
     else:
         return redirect('main:landing page')
-@api_view(['POST',])
+
+
+@api_view(['POST'])
 def apiregister(request):
     return
+
 
 def register(request):
     if request.method == 'POST':

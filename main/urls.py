@@ -18,12 +18,14 @@ from django.contrib import admin
 from main import views as myapp_views
 from mysite import settings
 from . import views
+from django.urls import path
 from django.conf.urls import handler404, handler500
 from django.conf.urls.static import static
 
 app_name = 'main'
 
 urlpatterns = [
+    path('test/', views.testView.as_view(), name='test'),
     path('welcome', views.landing_page, name='landing page'),
     path('', views.homepage, name='homepage'),
     path('admin_home', views.homepage, name='admin homepage'),

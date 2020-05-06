@@ -5,10 +5,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from rest_framework.decorators import api_view
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent, Report
 import json
+from rest_framework.permissions import IsAuthenticated
 from random import randint
 from .face_recognition import save_embedding, face_recognition_init, find_known_faces
 import os
@@ -21,6 +23,11 @@ import pickle
 # teacher: 97641981
 # admin: 467713068
 
+class testView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request):
+        content = {'message': 'Hello, jakcob!'}
+        return Response(content)
 
 def error_404(request, exception):
     data = {}

@@ -11,6 +11,8 @@ from main.form import SignUpForm, NewStudentForm, LoginForm, newClassForm
 from .models import School, Teacher, Student, Class, TemporaryStudent, Report
 import json
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
+
 from random import randint
 from .face_recognition import save_embedding, face_recognition_init, find_known_faces
 import os
@@ -25,9 +27,11 @@ import pickle
 
 class testView(APIView):
     permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         content = {'message': 'Hello, jakcob!'}
         return Response(content)
+
 
 def error_404(request, exception):
     data = {}
@@ -442,4 +446,20 @@ def receive_class_img(request, class_id):
     report.save()
     print(present_list)
     response = json.dumps([{'List': report.get_student_dict()}])
+    return HttpResponse(response, content_type='text/json')
+
+
+@csrf_exempt
+def api_login(request):
+    data = json.loads(request.body.decode("utf-8"))[0]
+    user = authenticate(username=data['username'], password=data['password'])
+    if user is None:
+        response = json.dumps([{'Error': 'no user found'}])
+        return HttpResponse(response, content_type='text/json')
+
+    print(user)
+    try:
+        response = json.dumps([{'Success': str(Token.objects.filter(user=user)[0])}])
+    except IndexError:
+        response = json.dumps([{'Error': 'no token registered'}])
     return HttpResponse(response, content_type='text/json')

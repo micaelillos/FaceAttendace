@@ -127,6 +127,9 @@ class Class(models.Model):
 
         return embeddings, names
 
+    def get_student_count(self):
+        return len(self.get_student_list())
+
 
 class TemporaryStudent(models.Model):
     name = models.CharField(max_length=200)

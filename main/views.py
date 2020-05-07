@@ -112,10 +112,11 @@ def logout_request(request):
 
 
 def login_request(request):
-    if not request.user.is_authenticated and request.method == 'POST':
+    if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
-        print(form.is_valid())
         if form.is_valid():
+            if request.user.is_authenticated:
+                logout(request)
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)

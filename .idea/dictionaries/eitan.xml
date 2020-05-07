@@ -4,6 +4,7 @@
       <w>endblock</w>
       <w>endfor</w>
       <w>filenames</w>
+      <w>forloop</w>
     </words>
   </dictionary>
 </component>

@@ -169,9 +169,23 @@ def view_class(request, class_id):
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
         student_list.sort(key=lambda x: x.origin_class, reverse=True)
+
+        # reports
+        reports = Report.objects.filter(belonging_class=class_)
+        if len(reports) > 0:
+            reports = sorted(reports, key=lambda x: x.date)
+            student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}
+            for i, report in enumerate(reports):
+                if i != 0:
+                    new_dict = report.get_student_dict()
+                    for key, val in new_dict.items():
+                        student_dict[key].append(val)
+        else:
+            student_dict = {}
+
         return render(request=request, template_name='main/view_class.html',
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
-                               'class_name': class_.name})
+                               'class_name': class_.name, 'reports': reports, 'student_dict': student_dict})
     else:
         return redirect('main:landing page')
 

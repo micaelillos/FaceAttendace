@@ -1386,8 +1386,8 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/235. Job board/HTML/scss/_slider.scss */
 .slider_bg_1 {
- /* background-image: url(../img/banner/banner.jpg); */
- background-color: #f5f7fa;
+ background-image: url(../img/banner/banner.jpg);
+ /*background-color: #f5f7fa;*/
 
 }
 

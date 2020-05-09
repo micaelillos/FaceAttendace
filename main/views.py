@@ -180,12 +180,19 @@ def view_class(request, class_id):
                     new_dict = report.get_student_dict()
                     for key, val in new_dict.items():
                         student_dict[key].append(val)
+
+            student_dict = {key.name: student_dict[key.name] for key in student_list}
+            student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in
+                            student_list]
+
+
         else:
             student_dict = {}
-
+            student_list = [(l, 0) for l in student_list]
         return render(request=request, template_name='main/view_class.html',
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
-                               'class_name': class_.name, 'reports': reports, 'student_dict': student_dict})
+                               'class_name': class_.name, 'reports': reports, 'student_dict': student_dict,
+                               })
     else:
         return redirect('main:landing page')
 

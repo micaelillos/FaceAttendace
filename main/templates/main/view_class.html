@@ -31,6 +31,11 @@
             }
         }
 
+
+
+
+
+
 </script>
 <div class="container fix">
 
@@ -39,58 +44,76 @@
         <fieldset>
             <div class="switch-toggle alert alert-light">
                 <input id="list1" name="view" type="radio" checked>
-                <label style="color:black;font-weight:700" for="list1" id="list" onclick="switchClick(this.id)">Student List</label>
+                <label style="color:black;font-weight:700" for="list1" id="list" onclick="switchClick(this.id)">Student
+                    List</label>
 
                 <input id="report1" name="view" type="radio">
-                <label style="color:black;font-weight:700"  for="report1" id="report" onclick="switchClick(this.id)">Student Reports</label>
+                <label style="color:black;font-weight:700" for="report1" id="report" onclick="switchClick(this.id)">Student
+                    Reports</label>
 
                 <a class="btn btn-light" style="background-color:#8bc3ff;"></a>
             </div>
         </fieldset>
     </div>
-<div id="list_table">
-    <div class="progress-table-wrap">
-        <div class="progress-table">
-            <div class="table-head">
-                <div class="serial">#</div>
-                <div class="country">Name</div>
-                <div class="visit">Origin Class</div>
-            </div>
+    <div id="list_table">
+        <div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">#</div>
+                    <div class="country">Name</div>
+                    <div class="visit">Origin Class</div>
+                    <div class="percentage">Attendance Rates</div>
 
-            {% for student in student_list %}
-            <div class="table-row">
-                <div class="serial">{{ forloop.counter }}</div>
-                <div class="country"> {{student.name}}</div>
-                <div class="visit">{{student.origin_class}}</div>
-            </div>
-            {% endfor %}
+                </div>
 
+                {% for student in student_list %}
+                <div class="table-row">
+                    <div class="serial">{{ forloop.counter }}</div>
+                    <div class="country"> {{student.0.name}}</div>
+                    <div class="visit">{{student.0.origin_class}}</div>
+                    <div class="percentage">
+                        <div class="progress">
+                            {% if student.1 == 0 %}
+                            <div class="progress-bar color-2" role="progressbar" style="width: 2%"
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            {% elif student.1 < 80 %}
+                            <div class="progress-bar color-3" role="progressbar" style="width: {{student.1}}%"
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            {% else %}
+                            <div class="progress-bar color-4" role="progressbar" style="width: {{student.1}}%"
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
         </div>
     </div>
-</div>
     <br><br>
 
     <div id="report_table" style="display:none">
-    <div class="progress-table-wrap">
-        <div class="progress-table">
-            <div class="table-head">
-                <div class="serial">#</div>
-                <div class="country">Name</div>
-                {% for report in reports %}
-                <div class="visit">{{report.date}}</div>
+        <div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">#</div>
+                    <div class="country">Name</div>
+                    {% for report in reports %}
+                    <div class="visit">{{report.date}}</div>
+                    {% endfor %}
+                </div>
+                {% for name, l in student_dict.items %}
+                <div class="table-row">
+                    <div class="serial">{{ forloop.counter }}</div>
+                    <div class="country"> {{name}}</div>
+                    {% for i in l %}
+                    <div class="visit">{{i}}</div>
+                    {% endfor %}
+                </div>
                 {% endfor %}
             </div>
-            {% for name, l in student_dict.items %}
-            <div class="table-row">
-            <div class="serial">{{ forloop.counter }}</div>
-            <div class="country"> {{name}}</div>
-            {% for i in l %}
-            <div class="visit">{{i}}</div>
-            {% endfor %}
-            </div>
-            {% endfor %}
         </div>
-    </div>
     </div>
     <br><br>
 

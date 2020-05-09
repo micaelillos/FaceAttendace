@@ -27,10 +27,10 @@ class LoginForm(AuthenticationForm):
         super(LoginForm, self).__init__(*args, **kwargs)
 
     username = forms.EmailField(widget=forms.TextInput(
-        attrs={'class': 'input is-success', 'placeholder': 'Username', 'id': 'hello'}), label='')
+        attrs={'class': 'form-control', 'placeholder': 'Username', 'id': 'hello'}), label='')
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={
-            'class': 'input is-success',
+            'class': 'form-control',
             'placeholder': 'Password',
             'id': 'hi',
         }

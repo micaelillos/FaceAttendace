@@ -11,19 +11,26 @@
 <br>
 
 <script>
+
+
+
+
         function switchClick(id){
-            if (id === 'report'){
-            $('#list_table').detach();
-            $('#list_table').append($('#report_table'));
+            if(id === 'report'){
+               $('#list_table').hide();
+               $('#report_table').show();
+            $('#list_table').before($('#report_table'));
 
 
             }
             else {
-            $('#report_table').detach();
-            $('#report_table').append($('#list_table'));
+             $('#list_table').show();
+               $('#report_table').hide();
+            $('#list_table').after($('#report_table'));
 
             }
         }
+
 </script>
 <div class="container fix">
 
@@ -32,12 +39,12 @@
         <fieldset>
             <div class="switch-toggle alert alert-light">
                 <input id="list1" name="view" type="radio" checked>
-                <label for="list1" id="list" onclick="switchClick(this.id)">Student List</label>
+                <label style="color:black;font-weight:700" for="list1" id="list" onclick="switchClick(this.id)">Student List</label>
 
                 <input id="report1" name="view" type="radio">
-                <label for="report1" id="report" onclick="switchClick(this.id)">Student Reports</label>
+                <label style="color:black;font-weight:700"  for="report1" id="report" onclick="switchClick(this.id)">Student Reports</label>
 
-                <a class="btn btn-info"></a>
+                <a class="btn btn-light" style="background-color:#8bc3ff;"></a>
             </div>
         </fieldset>
     </div>
@@ -62,7 +69,8 @@
     </div>
 </div>
     <br><br>
-    <div id="report_table">
+
+    <div id="report_table" style="display:none">
     <div class="progress-table-wrap">
         <div class="progress-table">
             <div class="table-head">
@@ -88,16 +96,16 @@
 
     <hr>
 
-    <a class="tag is-primary is-large is-light" href="/view_school_for_new_class/{{class_id}}">Add students
+    <a class="btn btn-success" href="/view_school_for_new_class/{{class_id}}">Add students
         to class</a>
 
 
-    <a style="margin-left:20px;" class="tag is-danger is-large is-light"
+    <a style="margin-left:20px;" class="btn btn-danger"
        href="/delete_class_verification/{{class_id}}">Delete
         class</a>
 
 
-    <a style="float:right;" class="tag is-info is-large is-light" href="{{path}}">Back</a>
+    <a style="float:right;" class="btn btn-info" href="{{path}}">Back</a>
     <hr>
 
 

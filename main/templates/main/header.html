@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/static/css/slicknav.css" type="text/css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css" />
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
     <style>
         .card {
@@ -69,8 +70,10 @@
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div class="Appointment">
                                 {% if request.user.is_authenticated %}
+
                                 <div class="d-none d-lg-block">
-                                    <a class="boxed-btn3" href="/logout">Log out</a>
+
+                                    <a class="boxed-btn3" href="/logout">Log out {{request.user.username}}</a>
                                 </div>
                                 {% else %}
                                 <div class="phone_num d-none d-xl-block">

@@ -21,7 +21,7 @@ class School(models.Model):
     def add_origin_class(self, origin_class):
         if origin_class not in self.get_origin_class_list():
             current = str(self.origin_class_list)
-            current += str(origin_class) + ' '
+            current += str(origin_class) + ','
             self.origin_class_list = current
             self.save()
         else:
@@ -32,13 +32,13 @@ class School(models.Model):
         l = str(self.origin_class_list)
         class_name = ''
         for i, _ in enumerate(l):
-            if l[i] != ' ':
+            if l[i] != ',':
                 class_name += l[i]
             else:
                 origin_list.append(class_name)
                 class_name = ''
 
-        if class_name != ' ' and class_name != '':
+        if class_name != ',' and class_name != '':
             origin_list.append(class_name)
 
         return origin_list

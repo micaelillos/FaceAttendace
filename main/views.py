@@ -22,8 +22,8 @@ import pickle
 
 
 # Create your views here.
-# teacher: 97641981
-# admin: 467713068
+# teacher: 33638261
+# admin: 154491701
 
 class testView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -34,7 +34,7 @@ class testView(APIView):
 
 
 def error_404(request, exception):
-    data = {}
+    data = {exception}
     return render(request, 'main/hello.html', data)
 
 
@@ -183,8 +183,9 @@ def view_class(request, class_id):
                         student_dict[key].append(val)
 
             student_dict = {key.name: student_dict[key.name] for key in student_list}
-            student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in
-                            student_list]
+            student_list = [(l, int(
+                100 * len(list(filter((lambda x: x is True), student_dict[l.name]))) / len(student_dict[l.name]))) for l
+                            in student_list]
 
         else:
             student_dict = {}
@@ -468,8 +469,10 @@ def get_all_teacher_classes(request, id):
 @csrf_exempt
 def receive_class_img(request, class_id):
     print('start')
-    img = bytes(json.loads(request.body.decode("utf-8")), encoding="utf-8")
-    response = json.dumps([{'Success': 'received img(i hope!)'}])
+    data = json.loads(request.body.decode("utf-8"))
+    if data[:4] == 'data':
+        data = data[23:]
+    img = bytes(data, encoding="utf-8")
     # send without prefix
     filename = "main/imageToSave.jpg"
     with open(filename, "wb") as fh:

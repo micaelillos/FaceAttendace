@@ -9,6 +9,7 @@ from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
 import cv2
 import pickle
+import tensorflow as tf
 import time
 
 
@@ -72,7 +73,12 @@ def get_embeddings(filenames, student=False):
     # prepare the face for the model, e.g. center pixels
     samples = preprocess_input(samples, version=2)
     # perform prediction
-    yhat = model.predict(samples)
+    try:
+        yhat = model.predict(samples)
+    except:
+        graph = tf.get_default_graph()
+        with graph.as_default():
+            yhat = model.predict(samples)
     return yhat
 
 
@@ -98,7 +104,7 @@ def find_known_faces(class_embeddings, class_names, filename):
     known = []
     faces = extract_faces_for_class(filename)
     if not faces:
-        return None
+        return []
     samples = asarray(faces, 'float32')
     # prepare the face for the model, e.g. center pixels
     samples = preprocess_input(samples, version=2)
@@ -125,17 +131,19 @@ def face_recognition_init(restart=False):
     global detector
     global classifier
     global model
-
-    if detector == '' or restart:
+    global last_time
+    if detector == '' or restart or time.time()-last_time > 150:
         detector = MTCNN()
         classifier = cv2.CascadeClassifier('/Users/eitan/mysite/main/haarcascade_frontalface_default.xml')
         model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
+        last_time = time.time()
 
 
 detector = ''
 classifier = ''
 model = ''
-
+graph = ''
+last_time = time.time()
 
 if __name__ == '__main__':
     class_pics = ['yoel1.jpg', 'p3.jpg']

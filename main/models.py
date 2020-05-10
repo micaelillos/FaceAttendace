@@ -130,6 +130,22 @@ class Class(models.Model):
     def get_student_count(self):
         return len(self.get_student_list())
 
+    def get_attendance_rate(self):
+        reports = Report.objects.filter(belonging_class=self)
+        if reports:
+            true_count, count_sum = 0, 0
+
+            for report in reports:
+                s_dict = report.get_student_dict()
+                for _, val in s_dict.items():
+                    if val:
+                        true_count += 1
+                    count_sum += 1
+
+            return int(100 * true_count / count_sum)
+        else:
+            return 0
+
 
 class TemporaryStudent(models.Model):
     name = models.CharField(max_length=200)

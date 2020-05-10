@@ -17,25 +17,26 @@
 
     <br>
     <h1 class="title">Origin Classes:</h1>
-    <div class="list is-hoverable">
+    <ul class="unordered-list">
         {% for origin_class,students in classes.items %}
-        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
-           href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
-
+        <li><a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+               href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
+        </li>
         {% endfor %}
 
-    </div>
+    </ul>
 
     <a class="tag is-primary is-large is-light" href="/new_origin_class">Add origin class</a>
 
     <br><br>
 
     <h1 class="title">List of Teachers:</h1>
-     <div class="list is-hoverable">
-    {% for teacher in teachers %}
-    <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
-    {% endfor %}
-     </div>
+    <div class="list is-hoverable">
+        {% for teacher in teachers %}
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
+        {% endfor %}
+    </div>
 </div>
 <br><br><br>
 {% endblock %}

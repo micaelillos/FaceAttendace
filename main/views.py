@@ -49,6 +49,7 @@ def homepage(request):
 
         if not teacher.is_admin:  # in case its not a school admin
             classes = Class.objects.filter(teacher=teacher).all()
+            classes = [(c, c.get_attendance_rate()) for c in classes]
             return render(request=request, template_name='main/home.html', context={'classes': classes})
         else:
             classes = get_dict_of_origin_classes(teacher.school)
@@ -185,13 +186,13 @@ def view_class(request, class_id):
             student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in
                             student_list]
 
-
         else:
             student_dict = {}
             student_list = [(l, 0) for l in student_list]
         return render(request=request, template_name='main/view_class.html',
                       context={'student_list': student_list, 'path': '/', 'class_id': class_id,
                                'class_name': class_.name, 'reports': reports, 'student_dict': student_dict,
+                               'num_of_reports': len(reports)
                                })
     else:
         return redirect('main:landing page')
@@ -205,7 +206,8 @@ def view_origin_class(request, origin_class):
         student_list = Student.objects.filter(school=school, origin_class=origin_class).all()
         student_list = sorted(student_list, key=lambda x: x.name)
         return render(request, 'main/view_origin_class.html', {'student_list': student_list,
-                                                               'origin_class': origin_class})
+                                                               'origin_class': origin_class,
+                                                               'is_admin': teacher.is_admin})
     else:
         return redirect('main:landing page')
 
@@ -216,9 +218,31 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
         teacher = Teacher.objects.filter(id=teacher_id)[0]
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()
+        student_list.sort(key=lambda x: x.origin_class, reverse=True)
+
+        # reports
+        reports = Report.objects.filter(belonging_class=class_)
+        if len(reports) > 0:
+            reports = sorted(reports, key=lambda x: x.date)
+            student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}
+            for i, report in enumerate(reports):
+                if i != 0:
+                    new_dict = report.get_student_dict()
+                    for key, val in new_dict.items():
+                        student_dict[key].append(val)
+
+            student_dict = {key.name: student_dict[key.name] for key in student_list}
+            student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in
+                            student_list]
+
+        else:
+            student_dict = {}
+            student_list = [(l, 0) for l in student_list]
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list, 'class_name': class_.name,
-                               'path': '/view_teacher/' + str(teacher_id), 'class_id': class_.id})
+                      context={'student_list': student_list, 'path': '/', 'class_id': class_id,
+                               'class_name': class_.name, 'reports': reports, 'student_dict': student_dict,
+                               'num_of_reports': len(reports)
+                               })
     else:
         return redirect('main:landing page')
 

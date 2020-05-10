@@ -18,7 +18,7 @@
         </div>
     </section>
     <br/>
-<h1>Student List:</h1>
+    <h1>Student List:</h1>
 
     <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <tr>
@@ -35,12 +35,15 @@
 
     </table>
 
+    {% if is_admin %}
+    <a class="tag is-primary is-large is-light" href="/add_student/{{origin_class}}">Add a student</a>
 
-<a class="tag is-primary is-large is-light"href="/add_student/{{origin_class}}">Add a student</a>
+    <a style="float:right;" class="tag is-info is-large is-light" href="/admin_home">Back</a>
+    {% else %}
 
-<a style="float:right;" class="tag is-info is-large is-light" href="/admin_home">Back</a>
+    <a style="float:right;" class="tag is-info is-large is-light" href="/view_school">Back</a>
 
-
-{% endblock %}
+    {% endif %}
+    {% endblock %}
 </body>
 </html>

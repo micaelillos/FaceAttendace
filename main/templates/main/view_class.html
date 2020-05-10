@@ -40,6 +40,7 @@
 <div class="container fix">
 
     <h1 class="mb-30">{{class_name}}</h1>
+    <h3>Number of lessons: {{num_of_reports}}</h3>
     <div style="margin-bottom:-20px;">
         <fieldset>
             <div class="switch-toggle alert alert-light">
@@ -71,6 +72,7 @@
                     <div class="serial">{{ forloop.counter }}</div>
                     <div class="country"> {{student.0.name}}</div>
                     <div class="visit">{{student.0.origin_class}}</div>
+                    {% if num_of_reports > 0%}
                     <div class="percentage">
                         <div class="progress">
                             {% if student.1 == 0 %}
@@ -85,6 +87,7 @@
                             {% endif %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
 

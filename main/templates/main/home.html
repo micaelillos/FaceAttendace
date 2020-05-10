@@ -21,23 +21,28 @@
                 <div class="visit">Students</div>
                 <div class="percentage">Attendance Rates</div>
             </div>
-            {% for class in classes %}
+            {% for class, attendance in classes %}
             <div class="table-row">
                 <div class="serial">{{ forloop.counter }}</div>
                 <div class="country"><a href="/view_class/{{class.id}}">{{class.name}}</a></div>
                 <div class="visit">{{class.get_student_count}}</div>
                 <div class="percentage">
-                    <div class="progress">
-                        <div class="progress-bar color-1" role="progressbar" style="width: 60%" aria-valuenow="80"
-                             aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress">
+                            {% if attendance < 80 %}
+                            <div class="progress-bar color-3" role="progressbar" style="width: {{attendance}}%"
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            {% else %}
+                            <div class="progress-bar color-4" role="progressbar" style="width: {{attendance}}%"
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
             </div>
             {% endfor %}
 
         </div>
     </div>
-
+    <br>
     <a class="boxed-btn3" style="margin-top:5px;" href="create_new_class/" role="button">New Class</a>
 
 

@@ -8,20 +8,15 @@
 </head>
 <body>
 {% block content %}
+<h1 class="title">Origin Classes:</h1>
+    <div class="list is-hoverable">
+        {% for origin_class,students in classes.items %}
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+           href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
 
-<h1>School List:</h1>
-{% for origin_class,students in classes.items %}
-<h3>{{origin_class}}</h3>
+        {% endfor %}
 
-{% for student in students %}
-{{student.name}}
-
-<br>
-{% endfor %}
-<br>
-<br>
-{% endfor %}
-
+    </div>
 {% endblock %}
 </body>
 </html>

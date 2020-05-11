@@ -10,7 +10,7 @@
 <body>
 {% block content %}
 <br>
-<div class="container">
+<div class="container fix">
 
     <h1 class="subtitle">Student List:</h1>
 
@@ -18,14 +18,16 @@
     <br>
 
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-        <tr>
-            <th>Name</th>
-            <td>
-                <button onclick="select()" class="button is-link is-light is-small">select all</button>
-            </td>
-        </tr>
-        <script>
+    <div class="progress-table-wrap">
+        <div class="progress-table">
+            <div class="table-head">
+                <div class="serial">#</div>
+                <div class="country">Name</div>
+                <div class="visit">
+                    <button onclick="select()" class="btn btn-info">select all</button>
+                </div>
+            </div>
+                <script>
 
     function select() {
  let checkboxes = document.getElementsByName('students');
@@ -35,29 +37,34 @@
 }
 
 
-        </script>
-        <form method="POST">
-            {% csrf_token %}
-            {% for student in student_list %}
-            <tr>
-                <td>{{student.name}}</td>
-                <td><input type='checkbox' name="students" value="{{student.name}}"></td>
-            </tr>
-            {% endfor %}
 
-    </table>
-    {% if button == '1' %}
-    <button type="submit" class="button is-success is-light">create</button>
-    {% else %}
-    <button type="submit" class="button is-success is-light">add</button>
+                </script>
 
-    {% endif %}
-    </form>
-    <a style="float:right;" class="tag is-info is-large is-light"
-       href="/view_school_for_new_class/{{class_id}}">Back</a>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for student in student_list %}
+                    <div class="table-row">
+                    <div class="serial">{{ forloop.counter }}</div>
+                        <div class="country">{{student.name}}</div>
+                        <div class="visit"><input type='checkbox' name="students" value="{{student.name}}"></div>
+                    </div>
+                    {% endfor %}
 
-</div>
-{% endblock %}
+                </div>
+    </div>
+    <br>
+                    {% if button == '1' %}
+                    <button type="submit" class="btn btn-success">create</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success">add</button>
+
+                    {% endif %}
+                </form>
+                <a style="float:right;" class="btn btn-info"
+                   href="/view_school_for_new_class/{{class_id}}">Back</a>
+
+            </div>
+            {% endblock %}
 
 </body>
 </html>

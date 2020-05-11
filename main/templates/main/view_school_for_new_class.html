@@ -8,20 +8,21 @@
 <body>
 {% block content %}
 <br>
-<div class="container">
+<div class="container fix">
 
     <h1 class="title">Choose Class From Which To Add Students:</h1>
-
-    <div class="list is-hoverable">
+    <br>
+    <ul class="list-group ">
 
         {% for origin_class,students in classes.items %}
+        <li class="list-group-item">
         <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
            href="/select_students_from_origin/{{button}}/{{origin_class}}/{{class_id}}">{{origin_class}}</a>
-
+        </li>
         {% endfor %}
-    </div>
+    </ul>
 
-    <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+<a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
 
 </div>
 {% endblock %}

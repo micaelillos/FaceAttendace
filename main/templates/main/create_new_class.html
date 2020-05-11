@@ -8,21 +8,24 @@
 </head>
 <body>
 {% block content %}
-<br>
-<div class="container">
 
-    <h1 class="title">Please enter class name</h1>
+<div class="container fix">
 
-    {% csrf_token %}
-    <form method="POST">
+    <h1>Please enter class name</h1>
+    <form method="POST" class="form-horizontal">
         {% csrf_token %}
-        <input class="input is-small " name="name">
-        <br><br>
-        <button class="button is-success is-light" type="submit">add</button>
-        <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+        <br><br><br>
+        <div class="input-group">
+            <input class="form-control" placeholder="Class Name" name="name" style="max-width:30%;">
+
+        </div>
+        <br><br><br><br>
+        <button class="btn btn-success" type="submit">add</button>
+        <a style="float:right;" class="btn btn-info" href="/">Back</a>
 
     </form>
 </div>
+
 {% endblock %}
 </body>
 </html>

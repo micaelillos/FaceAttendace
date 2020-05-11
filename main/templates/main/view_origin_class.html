@@ -4,46 +4,50 @@
     <meta charset="UTF-8">
     <title>Origin Class</title>
     {% extends "main/header.html" %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 </head>
 <body>
 {% block content %}
 <br>
 
-<div class="container">
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <h1 class="title">{{origin_class}}</h1>
+<div class="container fix">
 
-        </div>
-    </section>
+    <h1 class="title">{{origin_class}}</h1>
+
+
     <br/>
     <h1>Student List:</h1>
-
-    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-        <tr>
-            <th>Name</th>
-            <th> Id</th>
-        </tr>
-
-        {% for student in student_list %}
-        <tr>
-            <td> {{student.name}}</td>
-            <td>{{student.id}}</td>
-        </tr>
-        {% endfor %}
-
-    </table>
-
+    <br>
+    <div id="report_table">
+        <div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">#</div>
+                    <div class="country">Name</div>
+                    <div class="visit">ID</div>
+                </div>
+                {% for student in student_list %}
+                <div class="table-row">
+                    <div class="serial">{{ forloop.counter }}</div>
+                    <div class="country">{{student.name}}</div>
+                    <div class="visit">{{student.id}}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
     {% if is_admin %}
-    <a class="tag is-primary is-large is-light" href="/add_student/{{origin_class}}">Add a student</a>
+    <a class="btn btn-success" href="/add_student/{{origin_class}}">Add a student</a>
 
-    <a style="float:right;" class="tag is-info is-large is-light" href="/admin_home">Back</a>
+    <a style="float:right;" class="btn btn-dark" href="/admin_home">Back</a>
     {% else %}
 
-    <a style="float:right;" class="tag is-info is-large is-light" href="/view_school">Back</a>
+    <a style="float:right;" class="btn btn-info" href="/view_school">Back</a>
 
     {% endif %}
-    {% endblock %}
+</div>
+{% endblock %}
 </body>
 </html>

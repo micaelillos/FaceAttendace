@@ -8,26 +8,22 @@
 <body>
 {% block content %}
 <br>
-<div class="container">
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <h1 class="title">{{teacher.name}}</h1>
-        </div>
-    </section>
-    <br>
+<div class="container fix">
+      <h1 class="title">{{teacher.name}}</h1>
     <h2 class="subtitle">List of classes:</h2>
-    <div class="list is-hoverable">
+
+    <ul class="list-group">
         {% for class in classes %}
 
-        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
            href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
 
 
         {% endfor %}
 
-    </div>
-
-    <a style="float:right;" class="tag is-info is-large is-light" href="/">Back</a>
+    </ul>
+    <br>
+    <a style="float:right;" class="btn btn-info" href="/">Back</a>
 </div>
 {% endblock %}
 </body>

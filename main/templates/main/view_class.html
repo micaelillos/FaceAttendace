@@ -112,7 +112,11 @@
                     <div class="serial">{{ forloop.counter }}</div>
                     <div class="country"> {{name}}</div>
                     {% for i in l %}
-                    <div class="visit">{{i}}</div>
+                    {% if i is True %}
+                    <div class="visit"><i class="fas fa-check" style="color:green;"></i></div>
+                    {% else %}
+                    <div class="visit"><i class="fas fa-times" style="color:#ca3b49;"></i></div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 {% endfor %}

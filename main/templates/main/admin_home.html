@@ -8,36 +8,35 @@
 <body>
 {% block content %}
 <br>
-<div class="container">
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <h1 class="title">Welcome {{request.user.username}}</h1>
-        </div>
-    </section>
-
+<div class="container fix">
+        <h1 class="title">Welcome {{request.user.username}}</h1>
     <br>
+    <div class="row">
+        <div class="col md-6">
     <h1 class="title">Origin Classes:</h1>
-    <ul class="unordered-list">
+    <ul class="list-group">
         {% for origin_class,students in classes.items %}
-        <li><a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+        <li><a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
                href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
         </li>
         {% endfor %}
 
     </ul>
+<br>
+    <a class="btn btn-success" href="/new_origin_class">Add origin class</a>
 
-    <a class="tag is-primary is-large is-light" href="/new_origin_class">Add origin class</a>
-
-    <br><br>
-
+    </div>
+<div class="col md-6">
     <h1 class="title">List of Teachers:</h1>
-    <div class="list is-hoverable">
+    <div class="list-group">
         {% for teacher in teachers %}
-        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
+        <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
            href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
         {% endfor %}
     </div>
+        </div>
 </div>
+    </div>
 <br><br><br>
 {% endblock %}
 </body>

@@ -182,6 +182,11 @@ def view_class(request, class_id):
                     for key, val in new_dict.items():
                         student_dict[key].append(val)
 
+            if len(student_dict) != len(student_list):
+                for student in student_list:  # change next: remove .name
+                    if student.name not in student_dict:
+                        student_dict[student.name] = [False for _ in range(len(reports))]
+
             student_dict = {key.name: student_dict[key.name] for key in student_list}
             student_list = [(l, int(
                 100 * len(list(filter((lambda x: x is True), student_dict[l.name]))) / len(student_dict[l.name]))) for l
@@ -231,6 +236,11 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
                     new_dict = report.get_student_dict()
                     for key, val in new_dict.items():
                         student_dict[key].append(val)
+
+            if len(student_dict) != len(student_list):
+                for student in student_list:  # change next: remove .name
+                    if student.name not in student_dict:
+                        student_dict[student.name] = [False for _ in range(len(reports))]
 
             student_dict = {key.name: student_dict[key.name] for key in student_list}
             student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in

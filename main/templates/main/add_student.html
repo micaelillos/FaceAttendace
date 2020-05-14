@@ -11,32 +11,24 @@
   visibility: hidden;
 }
 
-
-
-
-
-
-
-
-
     </style>
 </head>
 <body>
 {% block content %}
 <br>
 
-<div class="container">
+<div class="container fix">
 
     <h1 class="title">Enter student's information</h1>
-
+    <br><br>
     {% csrf_token %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ form.as_p }}
         <br>
-        <button type="submit" class="button is-success is-light">Add</button>
-        <a style="float:right;" href="{{ request.META.HTTP_REFERER }}" class="button is-light is-info" class>Back</a>
+        <button type="submit" class="btn btn-success">Add</button>
+        <a style="float:right;" href="{{ request.META.HTTP_REFERER }}" class="btn btn-info" class>Back</a>
     </form>
 
 

@@ -55,7 +55,10 @@ urlpatterns = [
     path('api/register', views.apiregister, name='api register'),
     path('api/teacher/<str:id>', views.get_all_teacher_classes, name='get all teacher classes'),
     path('api/class/img/<str:class_id>', views.receive_class_img, name='receive class image'),
-    path('api/login', views.api_login, name='api login')
+    path('api/login', views.api_login, name='api login'),
+    path('api/start_report/<str:class_id>', views.api_start_report, name='api start report'),
+    path('api/finish_report/<str:class_id>', views.api_finish_report, name='api finish report'),
+
 ]
 # handler 404
 handler404 = myapp_views.error_404

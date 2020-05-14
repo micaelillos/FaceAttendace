@@ -155,27 +155,30 @@ class TemporaryStudent(models.Model):
 class Report(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=200, default='done')
     belonging_class = models.ForeignKey(Class, default=0, on_delete=models.SET_DEFAULT)
     dictionary = models.CharField(max_length=1000)
 
     def get_student_dict(self):
         return ast.literal_eval(str(self.dictionary))
 
-    def create_student_dict(self, all_names, present_names):
+    def create_student_dict(self, all_names):
         d = {}
         for student in all_names:
-            if student in present_names:
-                d[student] = True
-            else:
-                d[student] = False
+            d[student] = False
 
         self.dictionary = str(d)
         self.save()
 
-    def change_student_dict(self, name, new_val):
+    def add_students(self, all_students):
         d = self.get_student_dict()
-        d[name] = new_val
+        for student in all_students:
+            d[student] = True
         self.dictionary = str(d)
+        self.save()
+
+    def change_status(self, new_status):
+        self.status = new_status
         self.save()
 
     class Meta:
@@ -186,3 +189,4 @@ class Report(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+

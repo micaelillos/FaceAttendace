@@ -24,7 +24,7 @@ import pickle
 # Create your views here.
 # teacher: 33638261
 # admin: 154491701
-
+# amir Token: b66b7ade1e3d73b4f6370613f1d447a448531e17
 class testView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -172,7 +172,7 @@ def view_class(request, class_id):
         student_list.sort(key=lambda x: x.origin_class, reverse=True)
 
         # reports
-        reports = Report.objects.filter(belonging_class=class_)
+        reports = Report.objects.filter(belonging_class=class_, status='done')
         if len(reports) > 0:
             reports = sorted(reports, key=lambda x: x.date)
             student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}
@@ -227,7 +227,7 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
         student_list.sort(key=lambda x: x.origin_class, reverse=True)
 
         # reports
-        reports = Report.objects.filter(belonging_class=class_)
+        reports = Report.objects.filter(belonging_class=class_, status='done')
         if len(reports) > 0:
             reports = sorted(reports, key=lambda x: x.date)
             student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}
@@ -461,25 +461,32 @@ def get_Student(request, student_name):
         return HttpResponse(response, content_type='text/json')
 
 
-def get_all_teacher_classes(request, id):
+def get_all_teacher_classes(id):
     teacher = Teacher.objects.filter(id=id)[0]
-    if request.method == 'GET':
-        try:
-            classes = Class.objects.filter(teacher=teacher).all()
-            class_names = [c.name for c in classes]
 
-            response = json.dumps([{'classes': class_names}])
-        except:
-            response = json.dumps([{'Error': 'no classes'}])
-    else:
-        response = None
-    return HttpResponse(response, content_type='text/json')
+    try:
+        classes = Class.objects.filter(teacher=teacher).all()
+        class_details = [[c.name, c.id] for c in classes]
+
+        response = {'classes': class_details}
+    except:
+        response = {'Error': 'no classes'}
+
+    return response
 
 
 @csrf_exempt
 def receive_class_img(request, class_id):
     print('start')
-    data = json.loads(request.body.decode("utf-8"))
+    data = json.loads(request.body.decode("utf-8"))[0]
+    token = str(data['token'])
+    user = Token.objects.filter(key=token)[0].user
+    if user is None:
+        response = json.dumps([{'Error': 'no such token'}])
+        return HttpResponse(response, content_type='text/json')
+
+    teacher = Teacher.objects.filter(username=str(user))[0]
+    data = str(data['img'])
     if data[:4] == 'data':
         data = data[23:]
     img = bytes(data, encoding="utf-8")
@@ -488,7 +495,7 @@ def receive_class_img(request, class_id):
     with open(filename, "wb") as fh:
         fh.write(base64.decodebytes(img))
 
-    class_ = Class.objects.filter(id=class_id)[0]
+    class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
     name_list = []
     embedding_list = []
     for student in class_.get_student_list():
@@ -500,11 +507,55 @@ def receive_class_img(request, class_id):
         embedding_list.append(embedding)
 
     present_list = find_known_faces(embedding_list, name_list, filename)
-    report = Report(belonging_class=class_)
-    report.create_student_dict(name_list, present_list)
+    print(f'present_list: {type(present_list)}')
+
+    report = Report(belonging_class=class_, status='constructing')
+    report.add_students(present_list)
     report.save()
     print(present_list)
-    response = json.dumps([{'List': report.get_student_dict()}])
+    response = json.dumps([{'success': 'received image'}])
+    return HttpResponse(response, content_type='text/json')
+
+
+@csrf_exempt
+def api_start_report(request, class_id):
+    data = json.loads(request.body.decode("utf-8"))[0]
+    token = str(data['token'])
+    user = Token.objects.filter(key=token)[0].user
+    if user is None:
+        response = json.dumps([{'Error': 'no such token'}])
+        return HttpResponse(response, content_type='text/json')
+
+    teacher = Teacher.objects.filter(username=str(user))[0]
+    class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
+
+    problematic_reports = Report.objects.filter(belonging_class=class_, status='constructing').all()
+    for problematic_report in problematic_reports:
+        problematic_report.delete()
+
+    name_list = [student.name for student in class_.get_student_list()]
+    report = Report(belonging_class=class_, status='constructing')
+    report.create_student_dict(name_list)
+    report.save()
+
+    response = json.dumps([{'sent': 'received'}])
+    return HttpResponse(response, content_type='text/json')
+
+
+@csrf_exempt
+def api_finish_report(request, class_id):
+    data = json.loads(request.body.decode("utf-8"))[0]
+    token = str(data['token'])
+    user = Token.objects.filter(key=token)[0].user
+    if user is None:
+        response = json.dumps([{'Error': 'no such token'}])
+        return HttpResponse(response, content_type='text/json')
+
+    teacher = Teacher.objects.filter(username=str(user))[0]
+    class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
+    report = Report(belonging_class=class_, status='constructing')
+    report.change_status('done')
+    response = json.dumps([{'present dict': report.get_student_dict()}])
     return HttpResponse(response, content_type='text/json')
 
 
@@ -512,13 +563,18 @@ def receive_class_img(request, class_id):
 def api_login(request):
     data = json.loads(request.body.decode("utf-8"))[0]
     user = authenticate(username=data['username'], password=data['password'])
+
     if user is None:
         response = json.dumps([{'Error': 'no user found'}])
         return HttpResponse(response, content_type='text/json')
 
     print(user)
     try:
-        response = json.dumps([{'Success': str(Token.objects.filter(user=user)[0])}])
+        teacher = Teacher.objects.filter(username=user.username)[0]
+        response = json.dumps([{'token': str(Token.objects.filter(user=user)[0])},
+                               {'classes': get_all_teacher_classes(teacher.id)}])
+
     except IndexError:
         response = json.dumps([{'Error': 'no token registered'}])
+
     return HttpResponse(response, content_type='text/json')

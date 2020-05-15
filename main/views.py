@@ -476,6 +476,31 @@ def get_all_teacher_classes(id):
 
 
 @csrf_exempt
+def api_start_report(request, class_id):
+    data = json.loads(request.body.decode("utf-8"))[0]
+    token = str(data['token'])
+    user = Token.objects.filter(key=token)[0].user
+    if user is None:
+        response = json.dumps([{'Error': 'no such token'}])
+        return HttpResponse(response, content_type='text/json')
+
+    teacher = Teacher.objects.filter(username=str(user))[0]
+    class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
+
+    problematic_reports = Report.objects.filter(belonging_class=class_, status='constructing').all()
+    for problematic_report in problematic_reports:
+        problematic_report.delete()
+
+    name_list = [student.name for student in class_.get_student_list()]
+    report = Report(belonging_class=class_, status='constructing')
+    report.create_student_dict(name_list)
+    report.save()
+
+    response = json.dumps([{'sent': 'received'}])
+    return HttpResponse(response, content_type='text/json')
+
+
+@csrf_exempt
 def receive_class_img(request, class_id):
     print('start')
     data = json.loads(request.body.decode("utf-8"))[0]
@@ -509,36 +534,11 @@ def receive_class_img(request, class_id):
     present_list = find_known_faces(embedding_list, name_list, filename)
     print(f'present_list: {type(present_list)}')
 
-    report = Report(belonging_class=class_, status='constructing')
+    report = Report.objects.filter(belonging_class=class_, status='constructing')[0]
     report.add_students(present_list)
     report.save()
     print(present_list)
     response = json.dumps([{'success': 'received image'}])
-    return HttpResponse(response, content_type='text/json')
-
-
-@csrf_exempt
-def api_start_report(request, class_id):
-    data = json.loads(request.body.decode("utf-8"))[0]
-    token = str(data['token'])
-    user = Token.objects.filter(key=token)[0].user
-    if user is None:
-        response = json.dumps([{'Error': 'no such token'}])
-        return HttpResponse(response, content_type='text/json')
-
-    teacher = Teacher.objects.filter(username=str(user))[0]
-    class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
-
-    problematic_reports = Report.objects.filter(belonging_class=class_, status='constructing').all()
-    for problematic_report in problematic_reports:
-        problematic_report.delete()
-
-    name_list = [student.name for student in class_.get_student_list()]
-    report = Report(belonging_class=class_, status='constructing')
-    report.create_student_dict(name_list)
-    report.save()
-
-    response = json.dumps([{'sent': 'received'}])
     return HttpResponse(response, content_type='text/json')
 
 
@@ -553,7 +553,7 @@ def api_finish_report(request, class_id):
 
     teacher = Teacher.objects.filter(username=str(user))[0]
     class_ = Class.objects.filter(id=class_id, teacher=teacher)[0]
-    report = Report(belonging_class=class_, status='constructing')
+    report = Report.objects.filter(belonging_class=class_, status='constructing')[0]
     report.change_status('done')
     response = json.dumps([{'present dict': report.get_student_dict()}])
     return HttpResponse(response, content_type='text/json')

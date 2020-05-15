@@ -243,8 +243,9 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
                         student_dict[student.name] = [False for _ in range(len(reports))]
 
             student_dict = {key.name: student_dict[key.name] for key in student_list}
-            student_list = [(l, int(100 * len(list(filter((lambda x: x is True), student_dict[l.name]))))) for l in
-                            student_list]
+            student_list = [(l, int(
+                100 * len(list(filter((lambda x: x is True), student_dict[l.name]))) / len(student_dict[l.name]))) for l
+                            in student_list]
 
         else:
             student_dict = {}

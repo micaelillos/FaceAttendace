@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="style-blue-1  custom_fonts comps">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -19,81 +19,123 @@
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/fonts.googleapis.com/cssfcc9.css?family=Lato:400,700&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/ucarecdn.com/8a62037b-020b-424d-86ef-ba535f42d15a/favicon_icon0.png" sizes="16x16" />
+<link rel="stylesheet" href="/static/dghrayk5zwr4u.cloudfront.net/static/templates_css/main.79b90e7b5990.css"><script src="/static/dghrayk5zwr4u.cloudfront.net/static/templates_js/main.b745c938d90e.js" defer></script>
+<script src="https://use.fontawesome.com/fd15dd3fa5.js"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .card {
         margin: 0 auto; /* Added */
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
 }
-
+.nav-link{
+font-weight:700;
+}
+.navbar-brand{
+font-weight:700;
+}
     </style>
 </head>
-<body>
+<body class="font-lato comps" id="14471-212677">
 <!-- header-start -->
 <header>
-    <div class="header-area ">
-        <div id="sticky-header" class="main-header-area sticky">
-            <div class="container-fluid ">
-                <div class="header_bottom_border">
-                    <div class="row align-items-center">
-                        <div class="col-xl-3 col-lg-2">
-                            <div style="logo">
-                                <a href="">
-                                    <img style="max-width:163px;" src="/static/img/logo.jpeg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-7">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a href="/">home</a></li>
-                                        <li><a href="/view_school">View School</a></li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="candidate.html">Candidates </a></li>
-                                                <li><a href="job_details.html">job details </a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                            <div class="Appointment">
-                                {% if request.user.is_authenticated %}
 
-                                <div class="d-none d-lg-block">
+	<nav class="nav-02 ">
+		<div class="container container--large">
+			<div class="nav-02__box">
+				<div class="nav-02__logo"><a class="nav-02__link" href="" target="_self">
 
-                                    <a class="boxed-btn3" href="/logout">Log out {{request.user.username}}</a>
-                                </div>
-                                {% else %}
-                                <div class="phone_num d-none d-xl-block">
-                                    <a href="/register">Register</a>
-                                </div>
-                                <div class="d-none d-lg-block">
-                                    <a class="boxed-btn3" href="/login">Log in</a>
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
+						<img class="nav-02__logo_img" src="/static/ucarecdn.com/345242a4-be43-40f7-88a1-b7af9d1c1072/index.html"
+						        height="30"
 
-            </div>
-        </div>
-    </div>
+								alt="Logo"/>
+
+
+						<span class="nav-02__logo_text ">Attendy</span>
+
+				</a></div>
+				<div class="nav-02__links js-menu">
+					<div class="nav-02__list_wrapper  ">
+						<ul class="nav-02__list nav-02__list--desktop">
+
+
+									<li class="nav-02__item"><a
+											class="button   button--black-outline  button--empty "
+											href="" target="_self"><span class="button__text">Home</span></a>
+									</li>
+
+
+
+
+							<li class="nav-02__item">
+
+
+<div class="buttons-set"><ul class="buttons-set__list"><li class="buttons-set__item"><a
+				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+
+				 class="button button--accent-bg" href="/login" target="_self">
+	     {% if request.user.is_authenticated %}
+	<span class="button__text">Log out</span>
+	{% else %}
+		<span class="button__text">Log in</span>
+		{% endif %}
+</a></li><li class="buttons-set__item"><a
+				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+
+				 class="button button--black-outline" href="" target="_self"><span class="button__text">View School</span></a></li></ul></div>
+
+							</li>
+						</ul>
+						<ul class="nav-02__list nav-02__list--mobile">
+
+
+
+
+									<li class="nav-02__item"><a
+											class="button   button--black-outline  button--empty "
+											href="about-us/index.html" target="_self"><span class="button__text">About us</span></a>
+									</li>
+
+
+							<li class="nav-02__item">
+
+
+<div class="buttons-set"><ul class="buttons-set__list"><li class="buttons-set__item"><a
+				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+
+				 class="button button--accent-bg" href="/login" target="_self">
+   {% if request.user.is_authenticated %}
+	<span class="button__text">Log out</span>
+	{% else %}
+		<span class="button__text">Log in</span>
+		{% endif %}
+
+
+</a></li><li class="buttons-set__item"><a
+				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+
+				 class="button button--black-outline" href="" target="_self"><span class="button__text">View School</span></a></li></ul></div>
+
+							</li>
+						</ul>
+					</div>
+
+						<div class="nav-02__burger">
+	<button class="burger burger--black js-open-menu" type="button">
+		<div class="burger__box">
+			<div class="burger__inner"></div>
+		</div>
+	</button>
+</div>
+
+				</div>
+			</div>
+		</div>
+	</nav>
+
 </header>
 <!-- header-end -->
 <!-- slider_area_start -->

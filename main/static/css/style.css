@@ -165,6 +165,7 @@ body {
 /* line 17, ../../Arafath/CL/December/235. Job board/HTML/scss/theme-default.scss */
 a,
 .button {
+font-weight:500;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -558,7 +559,7 @@ h3 {
 /* line 24, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn3 {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#F91842+0,fd8e5e+100 */
-  background: #00D363;
+  background: #4d61fc;
   color: #fff;
   display: inline-block;
   padding: 13px 29px 13px 29px;
@@ -582,7 +583,7 @@ h3 {
 
 /* line 43, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn3:hover {
-  color: #00D363 !important;
+  color: #8cc5fc !important;
   border: 1px solid #00D363;
   background: transparent;
 }
@@ -617,8 +618,8 @@ h3 {
 
 /* line 67, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn4:hover {
-  color: #fff !important;
-  border: 1px solid #00D363;
+  color: #8cc5fc !important;
+  border: 1px solid #000000;
   background: transparent;
   border: 0;
   background: #00D363;
@@ -632,7 +633,7 @@ h3 {
 
 /* line 79, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn3-line {
-  color: #F91842 !important;
+  color: #8cc5fc !important;
   display: inline-block;
   padding: 14px 31px;
   font-family: "Roboto", sans-serif;
@@ -657,13 +658,9 @@ h3 {
   color: #fff !important;
   border: 1px solid transparent;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#F91842+0,fd8e5e+100 */
-  background: #fdae5c;
+  background: #8cc5fc;
   /* Old browsers */
-  background: -moz-linear-gradient(left, #fdae5c 0%, #fd8e5e 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #fdae5c 0%, #fd8e5e 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #fdae5c 0%, #fd8e5e 100%);
+
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F91842', endColorstr='#fd8e5e',GradientType=1 );
   /* IE6-9 */
@@ -1508,8 +1505,8 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/235. Job board/HTML/scss/_slider.scss */
 .slider_bg_1 {
- background-image: url(../img/banner/banner.jpg);
- /*background-color: #f5f7fa;*/
+
+ background-color: #fff;
 
 }
 
@@ -4994,14 +4991,16 @@ h6 {
 
 /* line 353, ../../Arafath/CL/December/235. Job board/HTML/scss/_elements.scss */
 .progress-table-wrap {
-  overflow-x: scroll;
+
 }
 
 /* line 357, ../../Arafath/CL/December/235. Job board/HTML/scss/_elements.scss */
 .progress-table {
-  background: #f9f9ff;
+  background: #fff;
+  border: 3px solid #3696f3;
+  border-radius: 5px;
   padding: 15px 0px 30px 0px;
-  min-width: 800px;
+
 }
 
 /* line 361, ../../Arafath/CL/December/235. Job board/HTML/scss/_elements.scss */
@@ -5036,16 +5035,16 @@ h6 {
 .progress-table .table-head .country,
 .progress-table .table-head .visit,
 .progress-table .table-head .percentage {
-  color: #415094;
+  color: #000000;
   line-height: 40px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /* line 387, ../../Arafath/CL/December/235. Job board/HTML/scss/_elements.scss */
 .progress-table .table-row {
   padding: 15px 0;
-  border-top: 1px solid #edf3fd;
+  border-top: 1px solid #fff;
   display: flex;
 }
 

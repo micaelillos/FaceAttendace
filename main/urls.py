@@ -54,10 +54,11 @@ urlpatterns = [
     path('api/student/<str:student_name>', views.get_Student, name='get student'),
     path('api/register', views.apiregister, name='api register'),
     path('api/teacher/<str:id>', views.get_all_teacher_classes, name='get all teacher classes'),
-    path('api/class/img/<str:class_id>', views.receive_class_img, name='receive class image'),
     path('api/login', views.api_login, name='api login'),
     path('api/start_report/<str:class_id>', views.api_start_report, name='api start report'),
+    path('api/send_img/<str:class_id>', views.receive_class_img, name='receive class image'),
     path('api/finish_report/<str:class_id>', views.api_finish_report, name='api finish report'),
+    path('api/start_models', views.api_start_models, name='api start models'),
 
 ]
 # handler 404

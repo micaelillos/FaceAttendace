@@ -496,7 +496,7 @@ def api_start_report(request, class_id):
     report = Report(belonging_class=class_, status='constructing')
     report.create_student_dict(name_list)
     report.save()
-
+    face_recognition_init()
     response = json.dumps([{'sent': 'received'}])
     return HttpResponse(response, content_type='text/json')
 
@@ -578,4 +578,18 @@ def api_login(request):
     except IndexError:
         response = json.dumps([{'Error': 'no token registered'}])
 
+    return HttpResponse(response, content_type='text/json')
+
+
+@csrf_exempt
+def api_start_models(request):
+    data = json.loads(request.body.decode("utf-8"))[0]
+    user = authenticate(username=data['username'], password=data['password'])
+
+    if user is None:
+        response = json.dumps([{'Error': 'no user found'}])
+        return HttpResponse(response, content_type='text/json')
+
+    face_recognition_init()
+    response = json.dumps([{'Success': 'started'}])
     return HttpResponse(response, content_type='text/json')

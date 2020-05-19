@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="style-blue-1  custom_fonts comps">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -15,16 +15,20 @@
     <link rel="stylesheet" href="/static/css/gijgo.css" type="text/css">
     <link rel="stylesheet" href="/static/css/animate.min.css" type="text/css">
     <link rel="stylesheet" href="/static/css/slicknav.css" type="text/css">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css"/>
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/fonts.googleapis.com/cssfcc9.css?family=Lato:400,700&amp;display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/static/ucarecdn.com/8a62037b-020b-424d-86ef-ba535f42d15a/favicon_icon0.png" sizes="16x16" />
-<link rel="stylesheet" href="/static/dghrayk5zwr4u.cloudfront.net/static/templates_css/main.79b90e7b5990.css"><script src="/static/dghrayk5zwr4u.cloudfront.net/static/templates_js/main.b745c938d90e.js" defer></script>
-<script src="https://use.fontawesome.com/fd15dd3fa5.js"></script>
-	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/ucarecdn.com/8a62037b-020b-424d-86ef-ba535f42d15a/favicon_icon0.png"
+          sizes="16x16"/>
+    <link rel="stylesheet" href="/static/dghrayk5zwr4u.cloudfront.net/static/templates_css/main.79b90e7b5990.css">
+    <script src="/static/dghrayk5zwr4u.cloudfront.net/static/templates_js/main.b745c938d90e.js" defer></script>
+    <script src="https://use.fontawesome.com/fd15dd3fa5.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .card {
         margin: 0 auto; /* Added */
@@ -37,104 +41,131 @@ font-weight:700;
 .navbar-brand{
 font-weight:700;
 }
+
+
+
+
+
     </style>
 </head>
 <body class="font-lato comps" id="14471-212677">
 <!-- header-start -->
-<header>
+<header class="style-blue-1  custom_fonts comps">
 
-	<nav class="nav-02 ">
-		<div class="container container--large">
-			<div class="nav-02__box">
-				<div class="nav-02__logo"><a class="nav-02__link" href="" target="_self">
+    <nav class="nav-02 ">
+        <div class="container container--large">
+            <div class="nav-02__box">
+                <div class="nav-02__logo"><a class="nav-02__link" href="/" target="_self">
 
-						<img class="nav-02__logo_img" src="/static/ucarecdn.com/345242a4-be43-40f7-88a1-b7af9d1c1072/index.html"
-						        height="30"
+                    <img class="nav-02__logo_img"
+                         src="/static/ucarecdn.com/345242a4-be43-40f7-88a1-b7af9d1c1072/index.html"
+                         height="30"
 
-								alt="Logo"/>
-
-
-						<span class="nav-02__logo_text ">Attendy</span>
-
-				</a></div>
-				<div class="nav-02__links js-menu">
-					<div class="nav-02__list_wrapper  ">
-						<ul class="nav-02__list nav-02__list--desktop">
+                         alt="Logo"/>
 
 
-									<li class="nav-02__item"><a
-											class="button   button--black-outline  button--empty "
-											href="" target="_self"><span class="button__text">Home</span></a>
-									</li>
+                    <span class="nav-02__logo_text ">Attendy</span>
+
+                </a></div>
+                <div class="nav-02__links js-menu">
+                    <div class="nav-02__list_wrapper  ">
+                        <ul class="nav-02__list nav-02__list--desktop">
 
 
+                            <li class="nav-02__item"><a
+                                    class="button   button--black-outline  button--empty "
+                                    href="/" target="_self"><span class="button__text">Home</span></a>
+                            </li>
 
 
-							<li class="nav-02__item">
+                            <li class="nav-02__item">
 
 
-<div class="buttons-set"><ul class="buttons-set__list"><li class="buttons-set__item"><a
-				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+                                <div class="buttons-set">
+                                    <ul class="buttons-set__list">
+                                        <li class="buttons-set__item">
+                                            {% if request.user.is_authenticated %}
 
-				 class="button button--accent-bg" href="/login" target="_self">
-	     {% if request.user.is_authenticated %}
-	<span class="button__text">Log out</span>
-	{% else %}
-		<span class="button__text">Log in</span>
-		{% endif %}
-</a></li><li class="buttons-set__item"><a
-				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+                                            <a data-stripe-product-id="" data-successful-payment-url=""
+                                               data-cancel-payment-url=""
+                                               class="button button--accent-bg" href="/logout" target="_self">
+                                                <span class="button__text">Log out</span>
 
-				 class="button button--black-outline" href="" target="_self"><span class="button__text">View School</span></a></li></ul></div>
+                                            </a>
+                                            {% else %}
+                                            <a data-stripe-product-id="" data-successful-payment-url=""
+                                               data-cancel-payment-url=""
+                                               class="button button--accent-bg" href="/login" target="_self">
+                                                <span class="button__text">Log in</span>
 
-							</li>
-						</ul>
-						<ul class="nav-02__list nav-02__list--mobile">
+                                            </a>
+                                            {% endif %}
 
+                                        </li>
 
+                                        <li class="buttons-set__item"><a
+                                                data-stripe-product-id="" data-successful-payment-url=""
+                                                data-cancel-payment-url=""
 
+                                                class="button button--black-outline" href="/view_school" target="_self"><span
+                                                class="button__text">View School</span></a></li>
+                                    </ul>
+                                </div>
 
-									<li class="nav-02__item"><a
-											class="button   button--black-outline  button--empty "
-											href="about-us/index.html" target="_self"><span class="button__text">About us</span></a>
-									</li>
-
-
-							<li class="nav-02__item">
-
-
-<div class="buttons-set"><ul class="buttons-set__list"><li class="buttons-set__item"><a
-				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
-
-				 class="button button--accent-bg" href="/login" target="_self">
-   {% if request.user.is_authenticated %}
-	<span class="button__text">Log out</span>
-	{% else %}
-		<span class="button__text">Log in</span>
-		{% endif %}
+                            </li>
+                        </ul>
+                        <ul class="nav-02__list nav-02__list--mobile">
 
 
-</a></li><li class="buttons-set__item"><a
-				 data-stripe-product-id="" data-successful-payment-url="" data-cancel-payment-url=""
+                            <li class="nav-02__item"><a
+                                    class="button   button--black-outline  button--empty "
+                                    href="about-us/index.html" target="_self"><span class="button__text">About us</span></a>
+                            </li>
 
-				 class="button button--black-outline" href="" target="_self"><span class="button__text">View School</span></a></li></ul></div>
 
-							</li>
-						</ul>
-					</div>
+                            <li class="nav-02__item">
 
-						<div class="nav-02__burger">
-	<button class="burger burger--black js-open-menu" type="button">
-		<div class="burger__box">
-			<div class="burger__inner"></div>
-		</div>
-	</button>
-</div>
 
-				</div>
-			</div>
-		</div>
-	</nav>
+                                <div class="buttons-set">
+                                    <ul class="buttons-set__list">
+                                        <li class="buttons-set__item"><a
+                                                data-stripe-product-id="" data-successful-payment-url=""
+                                                data-cancel-payment-url=""
+
+                                                class="button button--accent-bg" href="/login" target="_self">
+                                            {% if request.user.is_authenticated %}
+                                            <span class="button__text">Log out</span>
+                                            {% else %}
+                                            <span class="button__text">Log in</span>
+                                            {% endif %}
+
+
+                                        </a></li>
+                                        <li class="buttons-set__item"><a
+                                                data-stripe-product-id="" data-successful-payment-url=""
+                                                data-cancel-payment-url=""
+
+                                                class="button button--black-outline" href="" target="_self"><span
+                                                class="button__text">View School</span></a></li>
+                                    </ul>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-02__burger">
+                        <button class="burger burger--black js-open-menu" type="button">
+                            <div class="burger__box">
+                                <div class="burger__inner"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
 
 </header>
 <!-- header-end -->
@@ -175,7 +206,6 @@ font-weight:700;
 
 
 <!--contact js-->
-<script src="/static/js/contact.js"></script>
 <script src="/static/js/jquery.ajaxchimp.min.js"></script>
 <script src="/static/js/jquery.form.js"></script>
 <script src="/static/js/jquery.validate.min.js"></script>

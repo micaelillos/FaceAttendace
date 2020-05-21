@@ -9,7 +9,7 @@
 {% block content %}
 <br>
 <div class="container fix">
-        <h1 class="title">Welcome {{request.user.username}}</h1>
+        <h1 class="title">Welcome {{request.user.username | title}}</h1>
     <br>
     <div class="row">
         <div class="col md-6">
@@ -17,7 +17,7 @@
     <ul class="list-group">
         {% for origin_class,students in classes.items %}
         <li><a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
-               href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
+               href="/view_origin_class/{{origin_class}}">{{origin_class | title}}</a>
         </li>
         {% endfor %}
 
@@ -31,7 +31,7 @@
     <div class="list-group">
         {% for teacher in teachers %}
         <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
-           href="/view_teacher/{{teacher.id}}">{{teacher}}</a>
+           href="/view_teacher/{{teacher.id}}">{{teacher | title}}</a>
         {% endfor %}
     </div>
         </div>

@@ -13,7 +13,7 @@
 
 <div class="container fix">
 
-    <h1 class="title">{{origin_class}}</h1>
+    <h1 class="title">{{origin_class | title}}</h1>
 
 
     <br/>
@@ -30,7 +30,7 @@
                 {% for student in student_list %}
                 <div class="table-row">
                     <div class="serial">{{ forloop.counter }}</div>
-                    <div class="country">{{student.name}}</div>
+                    <div class="country">{{student.name | title}}</div>
                     <div class="visit">{{student.id}}</div>
                 </div>
                 {% endfor %}

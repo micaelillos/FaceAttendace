@@ -10,6 +10,7 @@
     body{
     font-family: 'Open Sans', sans-serif;
     }
+
     </style>
 </head>
 
@@ -18,10 +19,6 @@
 <br>
 
 <script>
-
-
-
-
         function switchClick(id){
             if(id === 'report'){
                $('#list_table').hide();
@@ -38,19 +35,11 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
 </script>
+
 <div class="container fix">
 
-    <h1 class="mb-30">{{class_name}}</h1>
+    <h1 class="mb-30">{{class_name | title}}</h1>
     <h3>Number of lessons: {{num_of_reports}}</h3>
     <div style="margin-bottom:-20px;">
         <fieldset>
@@ -81,7 +70,7 @@
                 {% for student in student_list %}
                 <div class="table-row">
                     <div class="serial">{{ forloop.counter }}</div>
-                    <div class="country"> {{student.0.name}}</div>
+                    <div class="country"> {{student.0.name | title}}</div>
                     <div class="visit">{{student.0.origin_class}}</div>
                     {% if num_of_reports > 0%}
                     <div class="percentage">
@@ -120,7 +109,7 @@
                 {% for name, l in student_dict.items %}
                 <div class="table-row">
                     <div class="serial">{{ forloop.counter }}</div>
-                    <div class="country"> {{name}}</div>
+                    <div class="country"> {{name | title}}</div>
                     {% for i in l %}
                     {% if i is True %}
                     <div class="visit"><i class="fas fa-check" style="color:green;"></i></div>

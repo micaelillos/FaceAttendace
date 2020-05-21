@@ -9,14 +9,14 @@
 {% block content %}
 <br>
 <div class="container fix">
-      <h1 class="title">{{teacher.name}}</h1>
+      <h1 class="title">{{teacher.name | title}}</h1>
     <h2 class="subtitle">List of classes:</h2>
 
     <ul class="list-group">
         {% for class in classes %}
 
         <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-group-item"
-           href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name}}</a>
+           href="/view_teacher_class_for_admin/{{teacher.id}}/{{class.id}}">{{class.name | title}}</a>
 
 
         {% endfor %}

@@ -251,7 +251,7 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
             student_dict = {}
             student_list = [(l, 0) for l in student_list]
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list, 'path': '/', 'class_id': class_id,
+                      context={'student_list': student_list, 'path': '/view_teacher/' + str(teacher_id), 'class_id': class_id,
                                'class_name': class_.name, 'reports': reports, 'student_dict': student_dict,
                                'num_of_reports': len(reports)
                                })

@@ -15,7 +15,7 @@
         {% for origin_class,students in classes.items %}
         <li class="list-group-item">
             <a style="color:black; font-weight: 500;font-family: 'Roboto', sans-serif;" class="list-item"
-               href="/view_origin_class/{{origin_class}}">{{origin_class}}</a>
+               href="/view_origin_class/{{origin_class}}">{{origin_class | title}}</a>
         </li>
         {% endfor %}
 

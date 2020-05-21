@@ -11,8 +11,8 @@
 
 
 <div class="container fix">
-
-
+    <h1>Welcome {{request.user | title}}</h1>
+    <br><br>
     <div class="progress-table-wrap">
         <div class="progress-table">
             <div class="table-head">
@@ -24,7 +24,7 @@
             {% for class, attendance in classes %}
             <div class="table-row">
                 <div class="serial">{{ forloop.counter }}</div>
-                <div class="country"><a href="/view_class/{{class.id}}">{{class.name}}</a></div>
+                <div class="country"><a href="/view_class/{{class.id}}">{{class.name | title}}</a></div>
                 <div class="visit">{{class.get_student_count}}</div>
                 <div class="percentage">
                         <div class="progress">

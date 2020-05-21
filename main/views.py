@@ -251,7 +251,8 @@ def view_teacher_class_for_admin(request, teacher_id, class_id):
             student_dict = {}
             student_list = [(l, 0) for l in student_list]
         return render(request=request, template_name='main/view_class.html',
-                      context={'student_list': student_list, 'path': '/view_teacher/' + str(teacher_id), 'class_id': class_id,
+                      context={'student_list': student_list, 'path': '/view_teacher/' + str(teacher_id),
+                               'class_id': class_id,
                                'class_name': class_.name, 'reports': reports, 'student_dict': student_dict,
                                'num_of_reports': len(reports)
                                })
@@ -444,6 +445,22 @@ def get_origin_class_list(school, origin_class):
     return student_list
 
 
+def get_class_attendance_rate(c):
+    reports = Report.objects.filter(belonging_class=c, status='done').all()
+    positive, count = 0, 0
+    if len(reports) > 0:
+        for i, report in enumerate(reports):
+            new_dict = report.get_student_dict()
+
+            for _, val in new_dict.items():
+                if val:
+                    positive += 1
+                count += 1
+        return int(positive / count)
+    else:
+        return 0
+
+
 # json functions
 
 # Todo json authentication
@@ -467,7 +484,7 @@ def get_all_teacher_classes(id):
 
     try:
         classes = Class.objects.filter(teacher=teacher).all()
-        class_details = [[c.name, c.id] for c in classes]
+        class_details = [[c.name, c.id, get_class_attendance_rate(c)] for c in classes]
 
         response = {'classes': class_details}
     except:

@@ -456,7 +456,7 @@ def get_class_attendance_rate(c):
                 if val:
                     positive += 1
                 count += 1
-        return int(positive / count)
+        return int(100 * (positive / count))
     else:
         return 0
 

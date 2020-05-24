@@ -11,6 +11,7 @@
     font-family: 'Open Sans', sans-serif;
     }
 
+
     </style>
 </head>
 
@@ -19,12 +20,25 @@
 <br>
 
 <script>
+        function split(str, val){
+            first = false
+            for (let i=0;i<str.length;i++)
+                if (str[i] === ",")
+                    first = true
+            if (first){
+            new_str = ''
+            for (let i=0;i<str.length && str[i] !== val;i++)
+                new_str += str[i]
+            return new_str
+            }
+        }
         function switchClick(id){
+
             if(id === 'report'){
                $('#list_table').hide();
                $('#report_table').show();
             $('#list_table').before($('#report_table'));
-
+            start()
 
             }
             else {
@@ -34,11 +48,14 @@
 
             }
         }
+        function start(){
+
+            $(".date").text(split($(".date").text(), ","))
+        }
 
 </script>
 
-<div class="container fix">
-
+<div class="container fix" onload="start()">
     <h1 class="mb-30">{{class_name | title}}</h1>
     <h3>Number of lessons: {{num_of_reports}}</h3>
     <div style="margin-bottom:-20px;">
@@ -103,7 +120,7 @@
                     <div class="serial">#</div>
                     <div class="country">Name</div>
                     {% for report in reports %}
-                    <div class="visit">{{report.date}}</div>
+                    <div class="visit date">{{report.date}}</div>
                     {% endfor %}
                 </div>
                 {% for name, l in student_dict.items %}
@@ -137,7 +154,6 @@
 
     <a style="float:right;" class="btn btn-info" href="{{path}}">Back</a>
     <hr>
-
 
 </div>
 {% endblock %}

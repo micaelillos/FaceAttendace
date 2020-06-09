@@ -172,6 +172,7 @@ def view_class(request, class_id):
 
         # reports
         reports = Report.objects.filter(belonging_class=class_, status='done')
+
         if len(reports) > 0:
             reports = sorted(reports, key=lambda x: x.date)
             student_dict = {key: [val] for key, val in reports[0].get_student_dict().items()}

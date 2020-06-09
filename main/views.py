@@ -165,7 +165,6 @@ def view_student(request, student_id):
 
 def view_class(request, class_id):
     if request.user.is_authenticated:
-
         teacher = Teacher.objects.filter(username=request.user.username)[0]
         class_ = Class.objects.filter(teacher=teacher, id=class_id)[0]
         student_list = class_.get_student_list()

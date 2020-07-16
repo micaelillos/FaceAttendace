@@ -604,7 +604,7 @@ def api_start_models(request):
     user = authenticate(username=data['username'], password=data['password'])
 
     if user is None:
-        response = json.dumps([{'Error': 'no user found'}])
+        response = json.dumps([{'Error': 'no x found'}])
         return HttpResponse(response, content_type='text/json')
 
     face_recognition_init()
